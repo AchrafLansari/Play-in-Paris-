@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<script src="jquery-2.1.1.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+    	$('h1').text('Bye World');
+		
+		$('button').click(function(){
+		
+				var jsonURL = 'http://api.flickr.com/services/feeds/photos_public.gne?tags=';
+				var formatJSON = '&tagmode=ANY&format=json&jsoncallback=?';
+				var monTag = $('#monTexte').val();
+				
+				var adresseComplete = jsonURL + monTag + formatJSON;
+				
+				var monTexte = 
+				
+				$.getJSON(adresseComplete, function(data){
+				
+					$.each(data.items, function(i, photo){
+						
+						var photoHTML = '<span>';
+						
+						photoHTML += '<img src="' + photo.media.m.replace('_m', '_s') + '"></span>';
+						
+						$('#photos').append(photoHTML);
+						
+					});
+				
+				});
+		});
+    });
+	
+</script>
+
+</head>
+
+<body>
+	<input id="monTexte"><button>Donne-moi mes photos taggées</button>
+	<h1>Hello world</h1>
+    <div id="photos"></div>
+</body>
+</html>
