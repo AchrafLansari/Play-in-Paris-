@@ -36,6 +36,15 @@
 			    fillOpacity: 0.8
 			};
 		
+		var myCinemaMarkerOptions = {
+			    radius: 10,
+			    fillColor: "#000000",
+			    color: "#000",
+			    weight: 1,
+			    opacity: 1,
+			    fillOpacity: 1
+			};
+		
 		var myGreenMarker = L.icon({
 		    iconUrl: 'leaf-green.png',
 		    shadowUrl: 'leaf-shadow.png',
@@ -111,6 +120,23 @@
                 });
                         
                         map.addLayer(geojsonLayer2);
+                        
+                        var cinema = new L.GeoJSON.AJAX("../cinema.geojson", {
+                        	pointToLayer: function(feature, coord){
+                					return L.circleMarker(coord, myCinemaMarkerOptions);
+                			},
+                            onEachFeature: function (feature, layer) {
+                                layer.bindPopup("Nom : " + feature.properties.enseigne + "<br/>Adresse : " + feature.properties.adr);
+                            },
+                			filter: function (feature, layer){
+                				if(feature.properties.ville == "PARIS")
+                					return true;
+                				else
+                					return false;
+                			}
+                        });
+                                
+                                map.addLayer(cinema);
 
 //L.layerJSON({url: "wifi.json" }).addTo(map);
 
