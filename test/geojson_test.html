@@ -1,0 +1,62 @@
+<html>
+	<body onload="init()">
+  <div id="mapdiv"></div>
+  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+  <script>
+  function init(){
+	  map = new OpenLayers.Map("mapdiv");
+      var layer         = new OpenLayers.Layer.OSM();
+      var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+      var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+      var position       = new OpenLayers.LonLat(2.3488000,48.8534100).transform( fromProjection, toProjection);
+      var zoom           = 14; 
+
+      map.addLayer(layer);
+      map.setCenter(position, zoom );
+      
+      var featurecollection = {
+              "type": "FeatureCollection", 
+              "features": [
+                {"geometry": {
+                    "type": "GeometryCollection", 
+                    "geometries": [
+                        {
+                            "type": "Polygon", 
+                            "coordinates": 
+                                [[[2.35151680,48.85748520], 
+                                  [2.36381090, 48.86750340], 
+                                  [2.37367, 48.844288]]]
+                        }
+                    ]
+                }, 
+                "type": "Feature", 
+                "properties": {}}
+              ]
+           };
+     //var geojson_format = new OpenLayers.Format.GeoJSON();
+     var vector_layer = new OpenLayers.Layer.Vector(); 
+     map.addLayer(vector_layer);
+     vector_layer.addFeatures(new OpenLayers.Format.GeoJSON().read(featurecollection, "FeatureCollection"));
+     
+     
+     var markers = new OpenLayers.Layer.Markers( "Markers" );
+     map.addLayer(markers);
+     
+     //ajout des stations de métro
+     var s_Hotel_Ville      = new OpenLayers.LonLat(2.35151680,48.85748520).transform( fromProjection, toProjection);
+     markers.addMarker(new OpenLayers.Marker(s_Hotel_Ville));
+     
+     var s_Republique = new OpenLayers.LonLat(2.36381090, 48.86750340).transform( fromProjection, toProjection);
+     markers.addMarker(new OpenLayers.Marker(s_Republique));
+     
+     var s_Gare_Lyon = new OpenLayers.LonLat(2.37367, 48.844288).transform( fromProjection, toProjection);
+     markers.addMarker(new OpenLayers.Marker(s_Gare_Lyon));
+  }
+  </script>
+  
+  <div id="minijeu"> Mon Mini jeu </div>
+
+    <script src="jquery-2.1.1.min.js"></script>
+    <script src="gestion.js"></script>
+</body>
+</html>
