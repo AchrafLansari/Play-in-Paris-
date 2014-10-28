@@ -16,7 +16,7 @@
         <script src="leaflet.ajax.min.js"></script>
 	<script>
 
-		var map = L.map('map').setView([48.8534100 , 2.3488000], 15);
+		var map = L.map('map').setView([48.8534100 , 2.3488000], 13);
 
 		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
 			minZoom: 13,
@@ -110,6 +110,7 @@
                 
                 map.addLayer(geojsonLayer);
                 
+                //http://opendata.paris.fr/explore/dataset/stations-velib-disponibilites-en-temps-reel/download/?format=geojson
                 var geojsonLayer2 = new L.GeoJSON.AJAX("stationsvelib.geojson", {
                     onEachFeature: function (feature, layer) {
                         layer.bindPopup("Nom : " + feature.properties.name + "<br/>Emplacements libres : " + feature.properties.available_bike_stands);
