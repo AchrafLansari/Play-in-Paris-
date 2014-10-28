@@ -166,6 +166,11 @@
 				.setLatLng(e.latlng)
 				.setContent("You clicked the map at " + e.latlng.toString())
 				.openOn(map);
+			
+			map.eachLayer(function(layer){
+				layer.setUrl('https://{s}.tiles.mapbox.com/v3/examples.map-i875mjb7/{z}/{x}/{y}.png');
+				layer.redraw();
+			});
 		}
 
 		map.on('click', onMapClick);
