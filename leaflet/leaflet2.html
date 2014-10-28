@@ -162,14 +162,21 @@
 		var popup = L.popup();
 
 		function onMapClick(e) {
-			popup
+			/*popup
 				.setLatLng(e.latlng)
 				.setContent("You clicked the map at " + e.latlng.toString())
 				.openOn(map);
-			
+			*/
 			map.eachLayer(function(layer){
-				layer.setUrl('https://{s}.tiles.mapbox.com/v3/examples.map-i875mjb7/{z}/{x}/{y}.png');
-				layer.redraw();
+				if(layer.options.hasOwnProperty('id')){
+					if(layer.options.id == 'examples.map-20v6611k'){
+						layer.options.id = 'examples.map-i875mjb7';
+					}
+					else{
+						layer.options.id = 'examples.map-20v6611k';
+					}
+					layer.redraw();
+				}
 			});
 		}
 
