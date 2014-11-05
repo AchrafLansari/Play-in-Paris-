@@ -121,8 +121,12 @@
                 
                 map.addLayer(geojsonLayer);
                 
-                //http://opendata.paris.fr/explore/dataset/stations-velib-disponibilites-en-temps-reel/download/?format=geojson
-                var geojsonLayer2 = new L.GeoJSON.AJAX("stationsvelib.geojson", {
+                var velib = "stationsvelib.geojson";
+                //var velib = "http://opendata.paris.fr/explore/dataset/stations-velib-disponibilites-en-temps-reel/download/?format=geojson";
+                
+                var velib_api =  readJSON("http://opendata.paris.fr/api/records/1.0/search?dataset=stations-velib-disponibilites-en-temps-reel&facet=banking&facet=bonus&facet=status&facet=contract_name");
+                
+                var geojsonLayer2 = new L.GeoJSON.AJAX(velib, {
                 	pointToLayer: function(feature, coord){
     					return L.marker(coord, {icon: myVeloMarker}).setOpacity(0.8);
     				},
@@ -181,6 +185,32 @@
 		}
 
 		map.on('click', onMapClick);
+		
+		
+		function readJSON(file) {
+		    var request = new XMLHttpRequest();
+		    request.open('GET', file, false);
+		    request.send(null);
+		    if (request.status == 200)
+		        return request.responseText;
+		}
+
+			function convertJSONtoGEOJSON(file){
+				var json = JSON.parse(readJSON(file));
+				var geojson = {
+						"type":"FeatureCollection",
+						"features":[]
+				};
+				var texte = "";
+				for(var i = 0; i < json.length; i++){
+					geojson.features[i] = {
+							"type": "Feature",
+							"geometry": json[i].geometry,
+							"properties": json[i].fields
+					};	
+				}
+				return geojson;
+			}
 
 	</script>
 </body>

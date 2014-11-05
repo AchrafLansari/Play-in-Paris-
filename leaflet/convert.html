@@ -14,10 +14,10 @@ function readJSON(file) {
     request.send(null);
     if (request.status == 200)
         return request.responseText;
-};
+}
 
-	//function convertJSONtoGEOJSON(){
-		var json = JSON.parse(readJSON('wifi.json'));
+	function convertJSONtoGEOJSON(file){
+		var json = JSON.parse(readJSON(file));
 		var geojson = {
 				"type":"FeatureCollection",
 				"features":[]
@@ -30,8 +30,10 @@ function readJSON(file) {
 					"properties": json[i].fields
 			};	
 		}
-	//}
+		return geojson;
+	}
 	
+	var geojson = convertJSONtoGEOJSON('wifi.json');
 
 </script>
 </body>
