@@ -21,7 +21,7 @@
         </ul>
 
        
-        <a href="#?w=500" rel="popup_name" class="poplight">Play the mini-game</a>
+        <a href="#?w=500" rel="popup_name" class="poplight" style="display: none;" >Play the mini-game</a>
         
         
         <div id="popup_name" class="popup_block">
@@ -168,7 +168,12 @@
 					return L.marker(coord, {icon: myCinemaMarkerOptions}).setOpacity(0.8);
 			},
             onEachFeature: function (feature, layer) {
-                layer.bindPopup("Nom : " + feature.properties.enseigne + "<br/>Adresse : " + feature.properties.adr);
+                //layer.bindPopup("Nom : " + feature.properties.enseigne + "<br/>Adresse : " + feature.properties.adr);
+                
+                layer.on("click", function (e) {
+                        $('a.poplight[href^=#]').click();
+                });
+               
             },
 			filter: function (feature, layer){
 				if(feature.properties.adrcommune == "PARIS")
