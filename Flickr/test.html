@@ -12,8 +12,8 @@
     	$('h1').text('Bye World');
 		
 		
-		
-				var jsonURL ='https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=12d7fe72aa888e1cda3bd37b036fda56&tags=paris&has_geo=true&geo_context=1&format=json&nojsoncallback=1&auth_token=72157646941021554-35e0d8fedc6cd2e8&api_sig=e63a70da701935e7b1f07787c5a04e83';
+                                var jsonURL = "https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=c7caee6f25c17ff0efc254bbc8663d24";
+				//var jsonURL ='https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=d741d1c036910725b9d1c56f5f1e3d2a&tags=paris&has_geo=true&geo_context=1&format=json&nojsoncallback=1&auth_token=72157646941021554-35e0d8fedc6cd2e8&api_sig=e63a70da701935e7b1f07787c5a04e83';
 				//var formatJSON = '&tagmode=ANY&format=json&jsoncallback=?';
 				//var monTag = 'Paris';
 				
@@ -33,7 +33,7 @@
                                                 var photoID =item.id;
                                                 
                                                 //var url = 'https://api.flickr.com/services/rest/?&amp;method=flickr.photos.geo.getLocation&amp;api_key=' + apiKey + '&amp;photo_id=' + photoID + '&amp;format=json&amp;jsoncallback=?';
-                                                var  url = son_geoloc = "https://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=12d7fe72aa888e1cda3bd37b036fda56&format=json&nojsoncallback=1&photo_id="+item.id;     
+                                                var  url = "https://api.flickr.com/services/rest/?method=flickr.photos.geo.getLocation&api_key=c7caee6f25c17ff0efc254bbc8663d24&format=json&nojsoncallback=1&photo_id="+item.id;     
                                                      
                                                      $.getJSON(url,function(data){
                                                      

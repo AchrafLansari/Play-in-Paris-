@@ -4,7 +4,7 @@
     <title></title>
     <script>
 
-        const PUZZLE_DIFFICULTY = 4;
+        var PUZZLE_DIFFICULTY;
         const PUZZLE_HOVER_TINT = '#009900';
 
         var _stage;
@@ -20,11 +20,13 @@
         var _currentDropPiece;  
 
         var _mouse;
+        var image = "http://static.panoramio.com/photos/large/114820536.jpg";
 
-        function init(){
+        function init(image,DIFFICULTY){
+            PUZZLE_DIFFICULTY = DIFFICULTY;
             _img = new Image();
             _img.addEventListener('load',onImage,false);
-            _img.src = "mke.jpg";
+            _img.src = image;
         }
         function onImage(e){
             _pieceWidth = Math.floor(_img.width / PUZZLE_DIFFICULTY)
@@ -217,7 +219,7 @@
     </script>
 </head>
 
-<body onload="init();">
+<body onload="init('http://static.panoramio.com/photos/large/114820536.jpg',6);">
     <canvas id="canvas"></canvas>
 </body>
 
