@@ -141,12 +141,18 @@
                 
                 map.addLayer(geojsonLayer);
                 
+                var geojsonLayer2;
+                
                 //raffraichit les données des stations velib toutes les 30 secondes
                 setInterval(function(){
                     $.getJSON(
                     		//Utilise l'API pour récupérer les données en temps réel au format JSON
-                    		"http://opendata.paris.fr/api/records/1.0/search?dataset=stations-velib-disponibilites-en-temps-reel&rows=50&facet=banking&facet=bonus&facet=status&facet=contract_name",
+                    		"http://opendata.paris.fr/api/records/1.0/search?dataset=stations-velib-disponibilites-en-temps-reel&q=available_bikes>30&rows=10&facet=banking&facet=bonus&facet=status&facet=contract_name",
                     		function(data){
+
+                    			if(map.hasLayer(geojsonLayer2))
+	                            	map.removeLayer(geojsonLayer2);
+                            
                     			var json = data;
                     			
                     			//Parse les données JSON en GEOJSON
@@ -169,22 +175,13 @@
                 				},
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup("Nom : " + feature.properties.name + "<br/>Emplacements libres : " + feature.properties.available_bike_stands);
-                                },
-                    			filter: function (feature, layer){
-                    				if(feature.properties.available_bike_stands > 20)
-                    					return true;
-                    				else
-                    					return false;
-                    			}
+                                }
                             });
-                        	
-                        	//TO DO : supprimer les données existantes de la map
-                        	
                         	//affiche les données sur la carte
                         	map.addLayer(geojsonLayer2);
                     		}
                     	);
-                },5000);
+                },30000);
                         
                
                         
