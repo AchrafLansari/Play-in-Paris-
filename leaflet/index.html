@@ -141,27 +141,49 @@
                 
                 map.addLayer(geojsonLayer);
                 
-                var velib = "stationsvelib.geojson";
-                //var velib = "http://opendata.paris.fr/explore/dataset/stations-velib-disponibilites-en-temps-reel/download/?format=geojson";
-                
-                var velib_api =  readJSON("http://opendata.paris.fr/api/records/1.0/search?dataset=stations-velib-disponibilites-en-temps-reel&facet=banking&facet=bonus&facet=status&facet=contract_name");
-                
-                var geojsonLayer2 = new L.GeoJSON.AJAX(velib, {
-                	pointToLayer: function(feature, coord){
-    					return L.marker(coord, {icon: myVeloMarker}).setOpacity(0.8);
-    				},
-                    onEachFeature: function (feature, layer) {
-                        layer.bindPopup("Nom : " + feature.properties.name + "<br/>Emplacements libres : " + feature.properties.available_bike_stands);
-                    },
-        			filter: function (feature, layer){
-        				if(feature.properties.available_bike_stands > 40)
-        					return true;
-        				else
-        					return false;
-        			}
-                });
+                //raffraichit les donnÃ©es des stations velib toutes les 30 secondes
+                setInterval(function(){
+                    $.getJSON(
+                    		//Utilise l'API pour rÃ©cupÃ©rer les donnÃ©es en temps rÃ©el au format JSON
+                    		"http://opendata.paris.fr/api/records/1.0/search?dataset=stations-velib-disponibilites-en-temps-reel&rows=50&facet=banking&facet=bonus&facet=status&facet=contract_name",
+                    		function(data){
+                    			var json = data;
+                    			
+                    			//Parse les donnÃ©es JSON en GEOJSON
+                    			var geojson = {
+                        				"type":"FeatureCollection",
+                        				"features":[]
+                        		};
+                        		var texte = "";
+                        		for(var i = 0; i < json.records.length; i++){
+                        			geojson.features[i] = {
+                        					"type": "Feature",
+                        					"geometry": json.records[i].geometry,
+                        					"properties": json.records[i].fields
+                        			};	
+                        		}
+                        		
+                        	geojsonLayer2 = new L.GeoJSON(geojson, {
+                            	pointToLayer: function(feature, coord){
+                					return L.marker(coord, {icon: myVeloMarker}).setOpacity(0.8);
+                				},
+                                onEachFeature: function (feature, layer) {
+                                    layer.bindPopup("Nom : " + feature.properties.name + "<br/>Emplacements libres : " + feature.properties.available_bike_stands);
+                                },
+                    			filter: function (feature, layer){
+                    				if(feature.properties.available_bike_stands > 20)
+                    					return true;
+                    				else
+                    					return false;
+                    			}
+                            });
+                        	
+                        	map.addLayer(geojsonLayer2);
+                    		}
+                    	);
+                },5000);
                         
-                        map.addLayer(geojsonLayer2);
+               
                         
         var cinema = new L.GeoJSON.AJAX("cinema.geojson", {
         	pointToLayer: function(feature, coord){
@@ -265,10 +287,10 @@
                     var popID = $(this).attr('rel'); //Trouver la pop-up correspondante
                     var popURL = $(this).attr('href'); //Retrouver la largeur dans le href
 
-                    //Récupérer les variables depuis le lien
+                    //Rï¿½cupï¿½rer les variables depuis le lien
                     var query= popURL.split('?');
                     var dim= query[1].split('&amp;');
-                    var popWidth = dim[0].split('=')[1]; //La première valeur du lien
+                    var popWidth = dim[0].split('=')[1]; //La premiï¿½re valeur du lien
 
                     //Faire apparaitre la pop-up et ajouter le bouton de fermeture
                     $('#' + popID).fadeIn().css({
@@ -276,7 +298,7 @@
                     })
                     .prepend('<a href="#" class="close"><img src="close_pop.png" class="btn_close" title="Fermer" alt="Fermer" /></a>');
 
-                    //Récupération du margin, qui permettra de centrer la fenêtre - on ajuste de 80px en conformité avec le CSS
+                    //Rï¿½cupï¿½ration du margin, qui permettra de centrer la fenï¿½tre - on ajuste de 80px en conformitï¿½ avec le CSS
                     var popMargTop = ($('#' + popID).height() + 80) / 2;
                     var popMargLeft = ($('#' + popID).width() + 80) / 2;
 
