@@ -75,9 +75,6 @@ $(document).ready(function() {
         dragend: function() {
             $(this).css('opacity', '1');
         },
-        // au clic sur un élément
-        click: function() {
-            alert($(this).text());
-        }
+      
     });
 });
