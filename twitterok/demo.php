@@ -56,26 +56,12 @@
 
                     if(!empty($consumer_key) && !empty($consumer_secret) && !empty($oauth_token) && !empty($oauth_token_secret)) {
                         
-                            if(!empty($content)){ foreach($content as $tweet){
-                                echo'
-                                <div class="twitter_status" id="'.$tweet->id_str.'">
-                                    <div class="bloc_content">
-                                        <p class="status tw_status">'.parseTweet($tweet->text).'</p>
-                                    </div>
-                                    <div class="bloc_caption">
-                                        <a href="http://twitter.com/'.$tweet->user->screen_name.'">
-                                            <img src="'.$tweet->user->profile_image_url.'" alt="@'.$tweet->user->name.'" class="userimg tw_userimg"/>
-                                            <span class="username tw_username">@'.$tweet->user->screen_name.'</span>
-                                        </a>
-                                        <span class="timestamp tw_timestamp">'.date('d M / H:i',strtotime($tweet->created_at)).'</span>
-                                    </div>
-                                </div>';
+                            if(!empty($content)){ 
+                              $tweet = $content [rand(0,count($content))];
 								
-                            }}
-                                echo'
-                            </p>
-                            <div class="visualClear"></div>
-                        </div>';
+								
+                            }
+                                
                     } else {
                         echo'<p>Please update your settings to provide valid credentials</p>';
                     }
@@ -107,15 +93,7 @@
 								$phrase= $tweet->text ;
  								$_SESSION['phrase']=$phrase;
 								$sentence = preg_split("/[?!\s]/", $phrase);
-								echo "<br>";
-								echo "<br>";
-								echo "<br>";
-								echo "<br>";
-								echo "<br>";
-								echo "<br>";
-								echo "<br>";
-								echo "<br>";
-								echo "<br>";
+								
 								//var_dump ($sentence);
 								echo $taille= count($sentence);
 								
@@ -132,7 +110,7 @@
 								echo "<br><br><br><br>";
 //								
 									echo"</ul>";
-var_dump ($phrase);
+//var_dump ($phrase);
 						
 						
 
