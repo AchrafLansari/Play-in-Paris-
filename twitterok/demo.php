@@ -67,28 +67,7 @@
                     }
                     echo '</div>';
 							echo'<link rel="stylesheet" type="text/css" href="drag.css">';
-					echo '<style>;
-					[draggable]
-					{
-						-moz-user-select: none;
-						-khtml-user-select: none;
-						-webkit-user-select: none;
-						user-select: none;
-					}
-
-					#liste li {
-						margin:4px;
-						width:75px;
-						border: 1px solid #000;
-						border-radius:2px;
-						cursor: move;
-						text-align:center;
-						padding:2px;
-						box-shadow: 1px 1px 12px #555;
-						background-color:white;
-						list-style-type:none;
-					}
-					</style>';
+					
 					
 								$phrase= $tweet->text ;
  								$_SESSION['phrase']=$phrase;
@@ -98,14 +77,14 @@
 								echo $taille= count($sentence);
 								
 									echo '<ul id="liste">';
-								$tab_correct=$sentence ;
+								//$tab_correct=$sentence ;
 //var_dump($tab_correct);
 								shuffle ($sentence) ;
 								
 								
 								for ($i = 0; $i < $taille; $i++) 
 								{
-								echo'<li draggable="true" id='.$i.'>'.$sentence[$i].'</li>';
+									echo'<li draggable="true" id="'.$i.'">'.$sentence[$i].'</li>';
 								}
 								echo "<br><br><br><br>";
 //								
