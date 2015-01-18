@@ -5,7 +5,7 @@ require_once(__DIR__.'/allocine.class.php');
 function recup_id_films($tab_films,$allocine)
 {
 $choix =$tab_films[rand(0,sizeof($tab_films)-1)] ;
-//echo $choix;
+
 $result = $allocine->search($choix);
 
 
@@ -40,7 +40,7 @@ function tokenisation ($separateurs, $texte)
 
 	while ($tok !== false) 
 	{
-		if( strlen($tok) > 2 )$arrayElements[] = $tok;
+		if( strlen($tok) > 2 )$arrayElements[] = utf8_decode($tok);
 		$tok = strtok($separateurs);
 	}
 	return $arrayElements;

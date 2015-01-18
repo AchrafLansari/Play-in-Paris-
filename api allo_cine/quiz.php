@@ -1,7 +1,8 @@
 <?php
-include_once('search.php');
-include_once('get.php');
-require_once(__DIR__.'/allocine.class.php');
+include_once('functions/search.php');
+include_once('functions/get.php');
+require_once(__DIR__.'/functions/allocine.class.php');
+
 define('ALLOCINE_PARTNER_KEY', '100043982026');
 define('ALLOCINE_SECRET_KEY', '29d185d98c984a359e6e6f26a0474269');
 
@@ -9,13 +10,15 @@ $allocine = new Allocine(ALLOCINE_PARTNER_KEY, ALLOCINE_SECRET_KEY);
 
 
 $film_search=file_get_contents("liste_film.txt") ;
-$tab_films  = tokenisation ("\n", $film_search ) ;
-$result = $allocine->get(recup_id_films($tab_films,$allocine));
-$myjson = json_decode($result);
-$result_option = $allocine->get(recup_id_films($tab_films,$allocine));
-$myjson_option = json_decode($result_option);
-$result_option_1 = $allocine->get(recup_id_films($tab_films,$allocine));
-$myjson_option_1 = json_decode($result_option_1);
+$tab_films  = tokenisation("\n", $film_search );
+$tab_films = array_map('rtrim', $tab_films);
+$result = array();
+$myjson = array();
+
+for($i=0;$i<3;$i++){
+    $result[$i] = $allocine->get(recup_id_films($tab_films,$allocine));
+    $myjson[$i] = json_decode($result[$i]);
+}
 
 ?>
 <html>
@@ -46,7 +49,12 @@ $myjson_option_1 = json_decode($result_option_1);
 
         <script>
 			
-            window.onload = function(){
+            function init(){
+                
+                
+                document.getElementById("bande").style.display = "none";
+    
+                
 
                 var canvas = document.getElementById("myCanvas");
                 var context = canvas.getContext("2d");
@@ -69,11 +77,11 @@ $myjson_option_1 = json_decode($result_option_1);
 				var textpos4=325;
 				
 				
-				var Questions = [<?php echo '"'.get_synopsis($myjson).'"';?>];
+				var Questions = [<?php echo '"'.  utf8_decode(get_synopsis($myjson[0])).'"';?>];
 											
-				var Options =[<?php echo '"'.get_title($myjson).'"';?>,
-								<?php echo '"'.get_title($myjson_option).'"';?>,
-								<?php echo '"'.get_title($myjson_option_1).'"';?>];
+				var Options =[<?php echo '"'.get_title($myjson[0]).'"';?>,
+								<?php echo '"'.get_title($myjson[1]).'"';?>,
+								<?php echo '"'.get_title($myjson[2]).'"';?>];
 
 
 				quizbg.onload = function(){
@@ -169,7 +177,7 @@ $myjson_option_1 = json_decode($result_option_1);
 		if (rightanswers==1)
 		{
 		divaffiche();
-		context.fillText("you Did It ;) watch the trailer  ",20,100);
+		context.fillText("you Did It ;) watch the trailer",20,100);
 		context.font = "20pt Calibri,Arial";
 		
 		
@@ -186,28 +194,25 @@ $myjson_option_1 = json_decode($result_option_1);
 
 
     </head>
-    <body onload="divcache()">
+    <body onload="init();">
 
     <div id="ccontainer">
 <canvas id="myCanvas" width="550" height="400"></canvas>
 </div>
 <script>
    
-    function divcache(){
-      document.getElementById("bande").style.display = "none";
     
-    }
 	function divaffiche(){
       document.getElementById("bande").style.display = "block";
     
     }
 	</script>
  <center><div id="bande" width="550" height="400">
-<object
+                <object
 		type="application/x-shockwave-flash"
-		data=<?php echo '"'.get_trailer($myjson).'"';?>
+		data=<?php echo '"'.get_trailer($myjson[0]).'"';?>
 		width="400" height="326">
-		<param name="movie" value=<?php echo '"'.get_trailer($myjson).'"';?>>
+		<param name="movie" value=<?php echo '"'.get_trailer($myjson[0]).'"';?>>
 		<param name="allowFullScreen" value="true">
 		<param name="allowScriptAccess" value="always">
 		</object>

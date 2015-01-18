@@ -22,7 +22,14 @@ class Allocine
         $sed = date('Ymd');
         $sig = urlencode(base64_encode(sha1($this->_secret_key.http_build_query($params).'&sed='.$sed, true)));
         $query_url .= '?'.http_build_query($params).'&sed='.$sed.'&sig='.$sig;
-
+        
+        /*var_dump($query_url);
+        
+        $total_tesults =0;
+        $response = file_get_contents($query_url);
+        //return $response;
+        die;*/
+        
         // do the request
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $query_url);
