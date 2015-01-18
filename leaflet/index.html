@@ -19,7 +19,7 @@
         <div class="header"></div>
         <div class="scroll"></div>
         <ul id="navigation">
-            <li class="home"><a   title="Score"> <div id="score"> <img id="icn_score" src="icones/Etoile.png"/>  150 ||<img id="icn_niveau" src="icones/Niveau.png"/> 2/15 </div></a></li>  
+            <li class="home"><a   title="Score"> <div id="score"> <img id="icn_score" src="icones/Etoile.png"/> <div id="score_utilisateur"> 0 </div> || <img id="icn_niveau" src="icones/Niveau.png"/><div id="niveau_utilisateur">1</div>/15 </div></a></li>  
         </ul>
         
         <ul id="legende">
@@ -253,6 +253,18 @@
 		}
 
 		map.on('click', onMapClick);
+                
+                $( "#map" )
+                    .mouseover(function() {
+                        if(parseInt($("#score_utilisateur").text())>50){
+                            $("#niveau_utilisateur" ).text( parseInt($("#niveau_utilisateur").text())+1);
+                        }
+                        
+                        setTimeout(function() {
+                                    $("#score_utilisateur" ).text( parseInt($("#score_utilisateur").text())+1);
+                        }, 10000);
+                        
+                    });
 		
 		
 		function readJSON(file) {
