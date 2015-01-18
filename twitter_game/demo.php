@@ -45,7 +45,7 @@
 							echo'<link rel="stylesheet" type="text/css" href="../twitter_game/drag.css">';
                                                         echo '
                                                               <script type="text/javascript" src="../twitter_game/drag.js"></script>
-                                                              <script type="text/javascript" src="http://dev.chez-syl.fr/drag_and_drop/js/jquery.js"></script>';
+                                                              <script type="text/javascript" src="../twitter_game/jquery.js"></script>';
 					
 					
 								$phrase= $tweet->text ;

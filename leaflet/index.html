@@ -140,8 +140,14 @@
             onEachFeature: function (feature, layer) {
               // layer.bindPopup("Nom : " + feature.properties.nom_site + "<br/>Adresse : " + feature.properties.ville);
               layer.on("click", function (e) {
-                        $('a.poplight[href^=#]').click();
+                            $('#minijeu').html("");
+                            $('a.poplight[href^=#]').click();
+                            $('#minijeu').load("../puzzle_game/puzzle_hard.php");
+                        
+                       /* $('a.poplight[href^=#]').click();
                         $('#minijeu').load("../twitter_game/demo.php");
+                       */
+                        
                 });
               
             },          
@@ -208,6 +214,7 @@
                 
                 layer.on("click", function (e) {
                         $('a.poplight[href^=#]').click();
+                        $('#minijeu').html("");
                 });
                
             },

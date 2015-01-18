@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <script>
 
+    <script>
+        
+        $( document ).ready(function() {
+           init(); 
+        });
         const PUZZLE_DIFFICULTY = 4;
         const PUZZLE_HOVER_TINT = '#009900';
 
@@ -24,7 +25,7 @@
         function init(){
             _img = new Image();
             _img.addEventListener('load',onImage,false);
-            _img.src = "<?php echo (rand(1,10));?>.jpg";
+            _img.src = "../puzzle_game/<?php echo (rand(1,10));?>.jpg";
         }
         function onImage(e){
             _pieceWidth = Math.floor(_img.width / PUZZLE_DIFFICULTY)
@@ -217,8 +218,6 @@
     </script>
 </head>
 
-<body onload="init();">
-    <canvas id="canvas"></canvas>
-</body>
 
-</html>
+    <canvas id="canvas"></canvas>
+
