@@ -1,33 +1,9 @@
 
 
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="fr"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="fr"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="fr"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="fr"> <!--<![endif]-->
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Intégration API Twitter 1.1 | NOE interactive</title>
-<link rel="profile" href="http://gmpg.org/xfn/11" />
-<link rel="stylesheet" type="text/css" media="all" href="skinNoe/skin.css" />
-
-<meta name='robots' content='noindex,nofollow' />
-<link rel='stylesheet' id='demo-css'  href='twitterapi.css' type='text/css' media='all' />
-
-<meta name="description" content="How to use the latest Twitter 1.1 API, by NOE Interactive, by NOE Interactive" />
-<meta name="keywords" content="Twitter, oAuth, NOE Interactive, php" />
-<link rel="canonical" href="http://noe-interactive.com/demo/!/twitterapi"/>
-<script type="text/javascript" src="http://dev.chez-syl.fr/drag_and_drop/js/jquery.js"></script>
-<script type="text/javascript" src="drag.js"></script>';
-</head>
-
-<body class="page lang-fr">
-
 
           
                 <?php
-				
+                     
 		session_start();
                     //1 - Settings (please update to math your own)
                     $consumer_key='bZVCiUXhg3VLyRJrN5IgMZQtT'; //Provide your application consumer key
@@ -40,7 +16,7 @@
                     if(!empty($consumer_key) && !empty($consumer_secret) && !empty($oauth_token) && !empty($oauth_token_secret)) {
 
                     //2 - Include @abraham's PHP twitteroauth Library
-                    require_once('twitteroauth/twitteroauth.php');
+                    require_once('../twitter_game/twitteroauth/twitteroauth.php');
 
                     //3 - Authentication
                     /* Create a TwitterOauth object with consumer/user tokens. */
@@ -66,7 +42,10 @@
                         echo'<p>Please update your settings to provide valid credentials</p>';
                     }
                     echo '</div>';
-							echo'<link rel="stylesheet" type="text/css" href="drag.css">';
+							echo'<link rel="stylesheet" type="text/css" href="../twitter_game/drag.css">';
+                                                        echo '
+                                                              <script type="text/javascript" src="../twitter_game/drag.js"></script>
+                                                              <script type="text/javascript" src="http://dev.chez-syl.fr/drag_and_drop/js/jquery.js"></script>';
 					
 					
 								$phrase= $tweet->text ;
@@ -74,7 +53,7 @@
 								$sentence = preg_split("/[?!\s]/", $phrase);
 								
 								//var_dump ($sentence);
-								echo $taille= count($sentence);
+								$taille= count($sentence);
 								
 									echo '<ul id="liste">';
 								//$tab_correct=$sentence ;
@@ -109,16 +88,6 @@ function parseTweet($text) {
 }
 
                 ?>
-            </section>
-        </div>
-    </article>
-</section>
-	</div><!-- #main -->
+            
 
-	<div class="visualClear"></div>
-
-
- </div><!-- #wrapper -->
 <div id="output"></div>
-</body>
-</html>

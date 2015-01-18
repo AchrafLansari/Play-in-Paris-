@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Leaflet Quick Start Guide Example</title>
-	<meta charset="utf-8" />
+	<title>Play-in-Paris</title>
+	
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8"/>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<link rel="stylesheet" href="css/map.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="../twitter_game/skinNoe/skin.css" />
+        <link rel='stylesheet' id='demo-css'  href='../twitter_game/twitterapi.css' type='text/css' media='all' />
+       
+
+       
+       
 </head>
 <body>  
         <div class="header"></div>
@@ -21,10 +27,10 @@
         </ul>
 
        
-        <a href="#?w=500" rel="popup_name" class="poplight" style="display: none;" >Play the mini-game</a>
+        <a href="#?w=700" rel="popup_name" class="poplight" style="display: none;" >Play the mini-game</a>
         
         
-        <div id="popup_name" class="popup_block">
+        <div id="popup_name" class="popup_block" style="height: 500px;" >
                 <h2>Mini jeu </h2>
                 <p>Description </p>
                 <div id="minijeu"> </div>
@@ -33,7 +39,10 @@
 
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
         <script src="js/leaflet.ajax.min.js"></script>
-        <script type="text/javascript" src="js/jquery-1.3.2.js"></script>
+        
+         <script type="text/javascript" src="js/jquery-1.3.2.js"></script>
+         
+
 	<script>
 
 		var map = L.map('map').setView([48.8534100 , 2.3488000], 13);
@@ -129,8 +138,13 @@
 					return L.circleMarker(coord, myCircleMarkerOptions);
 			},
             onEachFeature: function (feature, layer) {
-                layer.bindPopup("Nom : " + feature.properties.nom_site + "<br/>Adresse : " + feature.properties.ville);
-            },
+              // layer.bindPopup("Nom : " + feature.properties.nom_site + "<br/>Adresse : " + feature.properties.ville);
+              layer.on("click", function (e) {
+                        $('a.poplight[href^=#]').click();
+                        $('#minijeu').load("../twitter_game/demo.php");
+                });
+              
+            },          
 			filter: function (feature, layer){
 				if(feature.properties.geo_coordinates[0] < 48.85694)
 					return false;

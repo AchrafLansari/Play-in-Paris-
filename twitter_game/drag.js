@@ -3,7 +3,7 @@ $.event.props.push('dataTransfer');
 $(document).ready(function() {
     var i, $this, $log = $('#log');
  
-    $('#liste li').on({
+    $('#liste li').live({
         // on commence le drag
         dragstart: function(e) {
             $this = $(this);
