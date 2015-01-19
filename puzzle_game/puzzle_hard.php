@@ -25,7 +25,7 @@
         function init(){
             _img = new Image();
             _img.addEventListener('load',onImage,false);
-            _img.src = "../puzzle_game/1.jpg";
+            _img.src = "../puzzle_game/<?php echo rand (1,6)?>.jpg";
         }
         function onImage(e){
             _pieceWidth = Math.floor(_img.width / PUZZLE_DIFFICULTY)
