@@ -219,5 +219,5 @@
 </head>
 
 
-    <canvas id="canvas"></canvas>
+   <center> <canvas id="canvas"></canvas></center>
 
