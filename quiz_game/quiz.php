@@ -71,13 +71,17 @@ for($i=0;$i<3;$i++){
 				var wronganswers=0;
 				var QuizFinished = false;
 				var lock = false;
-				var textpos1=45;
+				var textpos1=50;
 				var textpos2=145;
 				var textpos3=230;
 				var textpos4=325;
 				
+				<?php $random_qs = rand(0,3); ?>
+				<?php $word=get_synopsis($myjson[$random_qs]) ; ?>
 				
-				var Questions = [<?php echo '"'.  utf8_decode(str_replace('"',' ',get_synopsis($myjson[0]))).'"';?>];
+				var Questions = [<?php echo "'".utf8_decode(str_replace("'"," ",$word))."'";
+					
+								 ?>];
 											
 				var Options =[<?php echo '"'.get_title($myjson[0]).'"';?>,
 								<?php echo '"'.get_title($myjson[1]).'"';?>,
@@ -98,15 +102,17 @@ for($i=0;$i<3;$i++){
 				SetQuestions = function(){
 
 					Question=Questions[qnumber];
-					CorrectAnswer=1+Math.floor(Math.random());
+					CorrectAnswer=<?php echo $random_qs+1; ?>;
 
 					Option1=Options[qnumber];Option2=Options[1];Option3=Options[2];
 					
 
 					context.textBaseline = "middle";
-					context.font = "10pt Calibri,Arial";
-					context.fillText(Question,20,textpos1);
-					context.font = "18pt Calibri,Arial";
+					context.font = "14pt Calibri,Arial";
+					context.fillText(<?php echo "'".utf8_decode(substr($word,0,125))."'";?>,12,textpos1);
+					<?php if(strlen($word) > 125 ){ ?>
+					context.fillText(<?php echo "'".utf8_decode(substr($word,125,175))."'";?>,12,textpos1+15);
+					<?php } ?>
 					context.fillText(Option1,20,textpos2);
 					context.fillText(Option2,20,textpos3);
 					context.fillText(Option3,20,textpos4);
@@ -197,26 +203,29 @@ for($i=0;$i<3;$i++){
     <body onload="init();">
 
     <div id="ccontainer">
-<canvas id="myCanvas" width="550" height="400"></canvas>
+<canvas id="myCanvas" width="550" height="400">
+
+</canvas>
+			
 </div>
-<script>
-   
-    
+
+ <script>
 	function divaffiche(){
       document.getElementById("bande").style.display = "block";
+		document.getElementById("ccontainer").style.display = "none";
     
     }
 	</script>
- <center><div id="bande" width="550" height="400">
+	<center><div id="bande" width="550" height="400" style ="margin-bottom:300px;">
                 <object
 		type="application/x-shockwave-flash"
-		data=<?php echo '"'.get_trailer($myjson[0]).'"';?>
+		data="<?php echo '"'.get_trailer($myjson[0]).'"';?>"
 		width="400" height="326">
-		<param name="movie" value=<?php echo '"'.get_trailer($myjson[0]).'"';?>>
-		<param name="allowFullScreen" value="true">
+		<param name="movie" value=<?php echo '"'.get_trailer($myjson[$random_qs]).'"';?>>
+		<param name="allowFullScreen" value="true">	
 		<param name="allowScriptAccess" value="always">
 		</object>
- 
+ 			<h1> you have won ! Enjoy The trailer </h1>
 </div></center>
 
 
