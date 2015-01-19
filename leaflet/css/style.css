@@ -1,4 +1,9 @@
-
+@font-face {
+font-family: 'kickflip';
+src: url('../font/kickflip.ttf');
+font-weight: normal;
+font-style: normal;
+}	 
 ul#navigation {
     position: fixed;
     margin: 0px;
@@ -36,6 +41,20 @@ ul#navigation li a {
     text-align: center;
     margin-top: 30px;
     
+}
+#score_utilisateur{
+    font-family: 'kickflip';
+    font-size: 48px;
+    height: 25px;
+    width: 25px;
+    float: left;
+}
+#niveau_utilisateur{
+    font-family: 'kickflip';
+    font-size: 48px;
+    height: 25px;
+    width: 25px;
+    float: left;
 }
 
 ul#legende {
@@ -112,8 +131,11 @@ position: absolute;
 #icn_score {
 width : 35px;
 height:   35px;
+float: left;
 }
 #icn_niveau {
 width : 35px;
 height:   35px;
+float: left;
 }
+
