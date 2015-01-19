@@ -77,7 +77,7 @@ for($i=0;$i<3;$i++){
 				var textpos4=325;
 				
 				
-				var Questions = [<?php echo '"'.  utf8_decode(get_synopsis($myjson[0])).'"';?>];
+				var Questions = [<?php echo '"'.  utf8_decode(str_replace('"',' ',get_synopsis($myjson[0]))).'"';?>];
 											
 				var Options =[<?php echo '"'.get_title($myjson[0]).'"';?>,
 								<?php echo '"'.get_title($myjson[1]).'"';?>,

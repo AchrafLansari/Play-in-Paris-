@@ -5,9 +5,9 @@ require_once(__DIR__.'/allocine.class.php');
 function recup_id_films($tab_films,$allocine)
 {
 $choix =$tab_films[rand(0,sizeof($tab_films)-1)] ;
-
-$result = $allocine->search($choix);
-
+var_dump($choix);
+$result = $allocine->search(utf8_decode($choix));
+var_dump($result);
 
 $myjson = json_decode($result);
 $id_film = $myjson->{'feed'}->{'movie'}[0]->{'code'};
