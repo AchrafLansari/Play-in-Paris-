@@ -30,9 +30,8 @@
         <a href="#?w=700" rel="popup_name" class="poplight" style="display: none;" >Play the mini-game</a>
         
         
-        <div id="popup_name" class="popup_block" style="height: 500px;" >
+        <div id="popup_name" class="popup_block" style="height: 500px" >
                 <h2>Mini jeu </h2>
-                <p>Description </p>
                 <div id="minijeu"> </div>
         </div>
 	<div id="map" ></div>
@@ -44,7 +43,8 @@
          
 
 	<script>
-
+		 const PUZZLE_DIFFICULTY = 2;
+        const PUZZLE_HOVER_TINT = '#009900';
 		var map = L.map('map').setView([48.8534100 , 2.3488000], 13);
 
 		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {

@@ -5,8 +5,7 @@
         $( document ).ready(function() {
            init(); 
         });
-        const PUZZLE_DIFFICULTY = 4;
-        const PUZZLE_HOVER_TINT = '#009900';
+       
 
         var _stage;
         var _canvas;
@@ -202,13 +201,16 @@
             }
             if(gameWin){
                 setTimeout(gameOver,500);
+				
             }
         }
         function gameOver(){
             document.onmousedown = null;
             document.onmousemove = null;
             document.onmouseup = null;
-            initPuzzle();
+            //initPuzzle();
+			document.getElementById("result").style.display = "block";
+			document.getElementById("canvas").style.display = "none";
         }
         function shuffleArray(o){
             for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
@@ -218,6 +220,10 @@
     </script>
 </head>
 
+<div id="result" style="display:none;margin-top:200px;"><center><H3>Congratulation You Win </h3></center></div>
 
-   <center> <canvas id="canvas"></canvas></center>
+   <center> <canvas id="canvas" style="margin-bottom:700px">
+   	
+	   
+   </canvas></center> 
 
