@@ -113,10 +113,17 @@ for($i=0;$i<3;$i++){
 					
 
 					context.textBaseline = "middle";
+<<<<<<< HEAD:quiz_game/index.php
 					context.font = "14pt Calibri,Arial";
 					context.fillText(<?php echo "'".utf8_decode(addslashes(substr($word,0,125)))."'";?>,12,textpos1);
 					<?php if(strlen($word) > 125 ){ ?>
 					context.fillText(<?php echo "'".utf8_decode(addslashes(substr($word,125,175)))."'";?>,12,textpos1+15);
+=======
+					context.font = "8pt Calibri,Arial";
+					context.fillText(<?php echo '"'.utf8_decode(substr($word,0,125)).'"';?>,12,textpos1);
+					<?php if(strlen($word) > 125 ){ ?>
+					context.fillText(<?php echo '"'.utf8_decode(substr($word,125,175)).'"';?>,12,textpos1+15);
+>>>>>>> origin/master:quiz_game/quiz.php
 					<?php } ?>
 					context.fillText(Option1,20,textpos2);
 					context.fillText(Option2,20,textpos3);
