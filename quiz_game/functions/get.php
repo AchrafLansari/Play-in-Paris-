@@ -8,7 +8,10 @@ return $json->{'movie'}->{'originalTitle'};
 }
 function get_synopsis ($json)
 {
+  if(isset($json->{'movie'}->{'synopsis'})){
 return $json->{'movie'}->{'synopsis'};
+    }else 
+        return '';
 }
 function get_trailer ($json)
 {

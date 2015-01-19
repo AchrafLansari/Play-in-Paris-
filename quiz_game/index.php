@@ -17,7 +17,9 @@ $myjson = array();
 
 for($i=0;$i<3;$i++){
     $result[$i] = $allocine->get(recup_id_films($tab_films,$allocine));
+    //var_dump($result[$i]);
     $myjson[$i] = json_decode($result[$i]);
+    
 }
 
 ?>
@@ -76,10 +78,13 @@ for($i=0;$i<3;$i++){
 				var textpos3=230;
 				var textpos4=325;
 				
-				<?php $random_qs = rand(0,3); ?>
-				<?php $word=get_synopsis($myjson[$random_qs]) ; ?>
+				<?php       
+                                                $random_qs = rand(0,2); 
+                                                $word=get_synopsis($myjson[$random_qs]); 
+                                          
+                                       ?>
 				
-				var Questions = [<?php echo "'".utf8_decode(str_replace("'"," ",$word))."'";
+				var Questions = [<?php echo "'".  utf8_decode(addslashes($word))."'";
 					
 								 ?>];
 											
@@ -109,9 +114,9 @@ for($i=0;$i<3;$i++){
 
 					context.textBaseline = "middle";
 					context.font = "14pt Calibri,Arial";
-					context.fillText(<?php echo "'".utf8_decode(substr($word,0,125))."'";?>,12,textpos1);
+					context.fillText(<?php echo "'".utf8_decode(addslashes(substr($word,0,125)))."'";?>,12,textpos1);
 					<?php if(strlen($word) > 125 ){ ?>
-					context.fillText(<?php echo "'".utf8_decode(substr($word,125,175))."'";?>,12,textpos1+15);
+					context.fillText(<?php echo "'".utf8_decode(addslashes(substr($word,125,175)))."'";?>,12,textpos1+15);
 					<?php } ?>
 					context.fillText(Option1,20,textpos2);
 					context.fillText(Option2,20,textpos3);
