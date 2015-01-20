@@ -176,7 +176,7 @@ for($i=0;$i<3;$i++){
 		context.fillText("you Did It ;) watch the trailer",20,100);
 		context.font = "20pt Calibri,Arial";
 		var id = <?php echo $_GET['id']?>;
-                piafLayer.removeLayer(id);
+                cinema.removeLayer(id);
 		score+=20;
                 $("#score_utilisateur" ).text(score);
 		}

@@ -200,6 +200,11 @@
                 }
             }
             if(gameWin){
+                var id = <?php echo $_GET['id']?>;
+                        
+                        puzzleLayer.removeLayer(id);
+                        score+=20;
+                        $("#score_utilisateur" ).text(score);
                 setTimeout(gameOver,500);
 				
             }
@@ -211,11 +216,7 @@
             //initPuzzle();
 			document.getElementById("result").style.display = "block";
 			document.getElementById("canvas").style.display = "none";
-                        var id = <?php echo $_GET['id']?>;
                         
-                        piafLayer.removeLayer(id);
-                        score+=20;
-                        $("#score_utilisateur" ).text(score);
         }
         function shuffleArray(o){
             for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
