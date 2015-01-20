@@ -27,61 +27,7 @@
                     
                   
                             ?>
-    
-<style>
-    /* Prevent the text contents of draggable elements from being selectable. */
-    [draggable] {
-      -moz-user-select: none;
-      -khtml-user-select: none;
-      -webkit-user-select: none;
-      user-select: none;
-      /* Required to make elements draggable in old WebKit */
-      -khtml-user-drag: element;
-      -webkit-user-drag: element;
-    }
-    .column {
-      height: 150px;
-      width: 150px;
-      float: left;
-      border: 2px solid #666666;
-      background-color: #ccc;
-      margin-right: 5px;
-      -webkit-border-radius: 10px;
-      -ms-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-      -webkit-box-shadow: inset 0 0 3px #000;
-      -ms-box-shadow: inset 0 0 3px #000;
-      box-shadow: inset 0 0 3px #000;
-      text-align: center;
-      cursor: move;
-    }
-    .column header {
-      color: #fff;
-      text-shadow: #000 0 1px;
-      box-shadow: 5px;
-      padding: 5px;
-      background: -moz-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-      background: -webkit-gradient(linear, left top, right top,
-                                   color-stop(0, rgb(0,0,0)),
-                                   color-stop(0.50, rgb(79,79,79)),
-                                   color-stop(1, rgb(21,21,21)));
-      background: -webkit-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-      background: -ms-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-      border-bottom: 1px solid #ddd;
-      -webkit-border-top-left-radius: 10px;
-      -moz-border-radius-topleft: 10px;
-      -ms-border-radius-topleft: 10px;
-      border-top-left-radius: 10px;
-      -webkit-border-top-right-radius: 10px;
-      -ms-border-top-right-radius: 10px;
-      -moz-border-radius-topright: 10px;
-      border-top-right-radius: 10px;
-    }
-    .column.over {
-  border: 2px dashed #000;
-    }
-</style>
+ 
 
 
 
@@ -101,9 +47,13 @@
 								//var_dump ($sentence);
 								$taille= count($sentence);
                                                                 shuffle ($sentence) ;
+                                                                
+                                                                $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+                                                                
                                                                 for ($i = 0; $i < $taille; $i++) 
 								{
-                                                                  echo '<div class="column" draggable="true"  id="'.$i.'"><header>'.$sentence[$i].'</header></div>';
+                                                                  $color = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
+                                                                  echo '<div class="column" draggable="true"  id="'.$i.'" style="background:'.$color.'" ><header>'.$sentence[$i].'</header></div>';
                                                                 }
                           function parseTweet($text) {
                             $text = preg_replace('#http://[a-z0-9._/-]+#i', '<a  target="_blank" href="$0">$0</a>', $text); //Link

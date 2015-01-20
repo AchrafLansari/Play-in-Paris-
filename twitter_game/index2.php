@@ -44,9 +44,14 @@
       -khtml-user-drag: element;
       -webkit-user-drag: element;
     }
+    #columns{
+       
+        width: 100%;
+
+    }
     .column {
-      height: 150px;
-      width: 150px;
+      position : relative;
+      width: auto;
       float: left;
       border: 2px solid #666666;
       background-color: #ccc;
@@ -66,13 +71,6 @@
       text-shadow: #000 0 1px;
       box-shadow: 5px;
       padding: 5px;
-      background: -moz-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-      background: -webkit-gradient(linear, left top, right top,
-                                   color-stop(0, rgb(0,0,0)),
-                                   color-stop(0.50, rgb(79,79,79)),
-                                   color-stop(1, rgb(21,21,21)));
-      background: -webkit-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-      background: -ms-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
       border-bottom: 1px solid #ddd;
       -webkit-border-top-left-radius: 10px;
       -moz-border-radius-topleft: 10px;
@@ -106,9 +104,13 @@
 								//var_dump ($sentence);
 								$taille= count($sentence);
                                                                 shuffle ($sentence) ;
+                                                                $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+                                                                
+    
                                                                 for ($i = 0; $i < $taille; $i++) 
 								{
-                                                                  echo '<div class="column" draggable="true"  id="'.$i.'"><header>'.$sentence[$i].'</header></div>';
+                                                                  $color = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
+                                                                  echo '<div class="column" draggable="true"  id="'.$i.'" style="background:'.$color.'" ><header>'.$sentence[$i].'</header></div>';
                                                                 }
                           function parseTweet($text) {
                             $text = preg_replace('#http://[a-z0-9._/-]+#i', '<a  target="_blank" href="$0">$0</a>', $text); //Link
