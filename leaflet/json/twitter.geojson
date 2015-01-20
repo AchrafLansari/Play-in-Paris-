@@ -6,21 +6,21 @@
          "geometry":{
             "type":"Point",
             "coordinates":[
-               2.294449,
-               48.858620
+               2.330117,
+               48.875336
             ]
          },
          "properties":{
             "ville":"Paris",
-            "adresse_complete":"5 Avenue Anatole France 75007 PARIS France",
-            "nom_site":"Tour Eiffel",
-            "adresse":"5 Avenue Anatole France",
-            "arrondissement":"07",
+            "adresse_complete":"7 Avenue du Coq 75009 PARIS France",
+            "nom_site":"Avenue du Coq",
+            "adresse":"7 Avenue du Coq",
+            "arrondissement":"09",
             "geo_coordinates":[
-               48.858620,
-               2.294449
+               48.875336,
+               2.330117
             ],
-            "cp":"75007"
+            "cp":"75009"
          }
       },
       {
@@ -28,21 +28,21 @@
          "geometry":{
             "type":"Point",
             "coordinates":[
-            	2.334204,
-               	48.861725
+               2.388825,
+               48.892607
             ]
          },
          "properties":{
             "ville":"Paris",
-            "adresse_complete":"111 Place du Carrousel 75001 PARIS France",
-            "nom_site":"Musée du Louvres",
-            "adresse":"111 Place du Carrousel",
-            "arrondissement":"01",
+            "adresse_complete":"Galerie de l'Ourcq 75019 PARIS France",
+            "nom_site":"Galerie de l'Ourcq",
+            "adresse":"Galerie de l'Ourcq",
+            "arrondissement":"19",
             "geo_coordinates":[
-               48.861725,
-               2.334204
+               48.892607,
+               2.388825
             ],
-            "cp":"75001"
+            "cp":"75019"
          }
       },
       {
@@ -50,21 +50,43 @@
          "geometry":{
             "type":"Point",
             "coordinates":[
-               2.337235,
-               48.845841
+               2.364958,
+               48.837197
             ]
          },
          "properties":{
-            "ville":"PARIS",
-            "adresse_complete":"Jardin du Luxembourg 75006 PARIS France",
-            "nom_site":"Jardin du Luxembourg",
-            "adresse":"Jardin du Luxembourg",
-            "arrondissement":"06",
+            "ville":"Paris",
+            "adresse_complete":"Rue de l'Infirmerie 75013 PARIS France",
+            "nom_site":"Hopital La pitié Salpétrière",
+            "adresse":"Rue de l'Infirmerie",
+            "arrondissement":"13",
             "geo_coordinates":[
-               48.845841,
-               2.337235
+               48.837197,
+               2.364958
             ],
-            "cp":"75006"
+            "cp":"75013"
+         }
+      },
+      {
+         "type":"Feature",
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+               2.267586,
+               48.847369
+            ]
+         },
+         "properties":{
+            "ville":"Paris",
+            "adresse_complete":"Lycée et Collège Jean Baptiste Say, 11Bis Rue Auteuil, 75016 PARIS France",
+            "nom_site":"Lycée et Collège Jean Baptiste Say",
+            "adresse":"11Bis Rue Auteuil",
+            "arrondissement":"16",
+            "geo_coordinates":[
+               48.847369,
+               2.267586
+            ],
+            "cp":"75016"
          }
       }
    ]
