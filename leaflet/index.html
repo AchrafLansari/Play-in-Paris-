@@ -39,7 +39,7 @@
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
         <script src="js/leaflet.ajax.min.js"></script>
         
-         <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery-1.3.2.js"></script>
          
 
 	<script>
@@ -215,6 +215,7 @@
                 layer.on("click", function (e) {
                         $('a.poplight[href^=#]').click();
                         $('#minijeu').html("");
+                        $('#minijeu').load("../twitter_game/");
                 });
                
             },
@@ -350,7 +351,7 @@
             });
 
             //Fermeture de la pop-up et du fond
-            $('a.close, #fade').on('click', function() { //Au clic sur le bouton ou sur le calque...
+            $('a.close, #fade').live('click', function() { //Au clic sur le bouton ou sur le calque...
                     $('#fade , .popup_block').fadeOut(function() {
                             $('#fade, a.close').remove();  //...ils disparaissent ensemble
                     });

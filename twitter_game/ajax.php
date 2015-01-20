@@ -4,7 +4,6 @@ if ($_POST)
 						{
 							$query=$_POST['requete'];
 							$query_new=substr($query,0,-1);
-							
 							if ($query_new == $_SESSION['phrase'])
 							{
 								

@@ -63,7 +63,7 @@
 								
 								for ($i = 0; $i < $taille; $i++) 
 								{
-									echo'<li draggable="true" id="'.$i.'">'.$sentence[$i].'</li>';
+									echo'<li  draggable="true" id="'.$i.'">'.$sentence[$i].'</li>';
 								}
 								echo "<br><br><br><br>";
 //								
