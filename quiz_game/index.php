@@ -26,28 +26,7 @@ for($i=0;$i<3;$i++){
 <html>
     <head>
 
-        <style>
-            body {
-            	background-color:green;
-		  }
-
-		  #ccontainer{
-		  width:550px;
-
-		  margin: 0 auto;
-		  margin-top:100px;
-		  }
-
-		  #myCanvas {
-		//background:#FFFFFF;
-		#bande{
-		width:550px;
-		margin: 0 auto;
-	    margin-top:100px;
-		}
-            }
-
-        </style>
+       <link rel="stylesheet" src="style.css">
 
         <script>
 			
