@@ -304,9 +304,18 @@
                 
                 $( "#map" )
                     .mouseover(function() {
-                        if(parseInt($("#score_utilisateur").text())>50){
-                            niveau +=1;
-                            $("#niveau_utilisateur" ).text( parseInt($("#niveau_utilisateur").text())+1);
+                        if(score >50 && score <100) {
+                            niveau =2;
+                            $("#niveau_utilisateur" ).text(niveau);
+                            PUZZLE_DIFFICULTY = 6;
+                        }
+                        if(score >100 && score <150) {
+                            niveau =3;
+                            $("#niveau_utilisateur" ).text(niveau);
+                        }
+                        if(score >150 && score <200) {
+                            niveau =4;
+                            $("#niveau_utilisateur" ).text(niveau);
                         }
                         
                         setTimeout(function() {
