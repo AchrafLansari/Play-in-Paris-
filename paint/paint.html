@@ -6,16 +6,23 @@
 		
 		<link rel="stylesheet" href="css/jquery.svg.css">
 		<link rel="stylesheet" href="css/jquery.parallax.css">
-		<link rel="stylesheet" href="css/base.css">
 		<style>
-			#svg-panel	 {
-				width: 400px;
-				height: 300px;
-				border: 1px solid #484;
-				position:relative;
-				overflow:hidden;
+			svg {
+				background: rgb(47, 49, 52);
 			}
-				
+			
+			image{
+				position: absolute;
+			}
+			
+			rect{
+				position: absolute;
+			}
+			
+			circle{
+				position: absolute;
+			}
+			
 			.calque_actif {
 				background-color: grey;
 			}
@@ -32,27 +39,30 @@
 			var calques = [1];
 			var tab_visibilite_calque = [true];
 			var tab_lock_calque = [false];
+			var tab_rotation_calque = [0];
+			var tab_rotation_vitesse = [0];
+			
 			var calque_actif = 1;
 			
 			$(function(){
-				$('#svg-panel').svg({onLoad: initSVG});
+				$('#svg-panel').svg({onLoad: initSVG, settings: {id: "parallax", class_: "parallax-viewport", width: "400px", height: "300px"}});
 				$('#image-fond-action').click(changerFond);
 				$('#svg-panel').click(paint);
 				$('#reset').click(reset);
 				
-				$('#svg-panel .parallax-layer').parallax({
-					mouseport: jQuery("#svg-panel")
+				$('#parallax .parallax-layer').parallax({
+					mouseport: jQuery("svg")[0]
 				});
 			});
 			
 			function initSVG(svg){
 				var svg = $('#svg-panel').svg('get');
 				
-				var fond = svg.group(null, "fond", {class_: "parallax-layer"});
+				var fond = svg.group(null, "fond", {class_: "parallax-layer", width: "600px", height: "600px"});
 				var image = 'http://images.lpcdn.ca/641x427/201306/25/708114-tour-eiffel-paris.jpg';
-				svg.image(fond, 0, 0, 400, 300, image);
+				svg.image(fond, 0, 0, 600, 400, image);
 				
-				svg.group(null, "g_calque_1", {class_: "parallax-layer", width: "800px", height: "600px"});
+				svg.group(null, "g_calque_1", {class_: "parallax-layer", width: "1000px", height: "1000px"});
 				select_calque('1');
 			}
 			
@@ -71,7 +81,10 @@
 				tab_lock_calque[nombre - 1] = false;
 				calques[nombre - 1] = nombre;
 			
-				svg.group(null, "g_calque_"+nombre, {class_: "parallax-layer", width: "800px", height: "200px"});
+				tab_rotation_calque[nombre - 1] = 0;
+				tab_rotation_vitesse[nombre - 1] = 0;
+				
+				svg.group(null, "g_calque_"+nombre, {class_: "parallax-layer", width: "1000px", height: "1000px"});
 				
 				var col_visible = '<td id="show-'+nombre+'" onclick="show('+nombre+', \'show-'+nombre+'\')">Oui</td>';
 				var col_lock = '<td id="lock-'+nombre+'" onclick="lock('+nombre+', \'lock-'+nombre+'\')">Non</td>';
@@ -119,9 +132,8 @@
 					calque_actif = calque;
 					$("#calque_"+calque).addClass("calque_actif");
 					
-					var rotation = 0;
-					var vitesse = 0;
-					
+					$("#input-rotation")[0].value = tab_rotation_calque[calque-1];
+					$("#vitesse-rotation")[0].value = tab_rotation_vitesse[calque-1];
 				}
 			}
 			
@@ -144,6 +156,10 @@
 			}
 			
 			function paint(evt){
+				if(tab_lock_calque[calque_actif - 1] == true){
+					return;
+				}
+				
 				var svg = $('#svg-panel').svg('get');
 				
 				var x = evt.offsetX;
@@ -188,13 +204,38 @@
 			
 			function set_rotation(){
 				var rotation = $("#input-rotation").val();
+				tab_rotation_calque[calque_actif - 1] = rotation;
+				
+				animate_calque();
+			}
+			
+			function set_vitesse_rotation(){
 				var vitesse = $("#vitesse-rotation").val();
+				tab_rotation_vitesse[calque_actif - 1] = vitesse;
 				
+				animate_calque();
+			}
+			
+			function animate_calque(){
 				var svg = $('#svg-panel').svg('get');
-				var groupe = svg.getElementById("g_calque_"+calque_actif);
 				
-				$(groupe).animate({svgTransform: 'rotate('+rotation+', 200, 150)'}, vitesse*1000);
-				var c = null;
+				var rotation = tab_rotation_calque[calque_actif - 1];
+				var vitesse = tab_rotation_vitesse[calque_actif - 1];
+				
+				var groupe = svg.getElementById("g_calque_"+calque_actif);
+				$(groupe).animate({svgTransform: 'rotate('+ rotation*10 +', 200, 150)'}, vitesse/100);
+			}
+			
+			function set_music(){
+				var svg = $('#svg-panel').svg('get');
+				
+				var fichier = $('#musique').val();
+				fichier = "01-a-horse-with-no-name.mp3";
+				
+				var script = "new Audio('"+ fichier +"').play();";
+				svg.script(null, script, "javascript");
+				
+				//$('#parallax').attr("onload", "audio.play(); alert('ok')");
 			}
 		</script>
 	</head>
@@ -206,7 +247,7 @@
 				<div id="menu-palette">
 					<div id="palette-taille">
 						<label>Taille</label>
-						<input id="taille-element" type="number" value="1"/>
+						<input id="taille-element" type="number" value="1" min="1" max="200"/>
 					</div>
 					<div id="palette-forme">
 						<label>Forme</label>
@@ -227,18 +268,22 @@
 					</div>
 					<div id="palette-opacite">
 						<label>Opacité</label>
-						<input id="opacite-element" type="number" value="100"/>
+						<input id="opacite-element" type="number" value="100" min="0" max="100"/>
 					</div>
 					<div>
-						<label>Ajouter une image</label>
-						<input id="image" type="url" value="http://fc07.deviantart.net/fs70/f/2010/232/6/9/Pika_Pika_by_Sprits.png"/>
-						<input id="image-largeur" type="number" value="100"/>
-						<input id="image-hauteur" type="number" value="100"/>
+						<label>Ajouter une image</label><input id="image" type="url" value="http://fc07.deviantart.net/fs70/f/2010/232/6/9/Pika_Pika_by_Sprits.png"/>
+						<label>Largeur</label><input id="image-largeur" type="number" value="100" min="1" max="2000"/>
+						<label>Hauteur</label><input id="image-hauteur" type="number" value="100" min="1" max="2000"/>
 					</div>
 					<div>
 						<label>Image de fond</label>
 						<input id="image-fond" type="url"/>
 						<span id="image-fond-action">Charger</span>
+					</div>
+					<div>
+						<label>Musique</label>
+						<input id="musique" type="url"/>
+						<span id="charger-musique" onclick="set_music()">Charger</span>
 					</div>
 					<div>
 						<span id="reset">Recommencer</span>
@@ -265,8 +310,8 @@
 				
 				<div id="menu-propriete">
 					<div>
-						<label>Rotation</label><input id="input-rotation" onchange="set_rotation()" type="number" value="0"/>
-						<label>Vitesse</label><input id="vitese-rotation" type="number" value="0"/>
+						<label>Rotation</label><input id="input-rotation" onchange="set_rotation()" type="number" min="0" max="360"/>
+						<label>Vitesse</label><input id="vitesse-rotation" onchange="set_vitesse_rotation()" type="number" min="0" max="1000"/>
 					</div>
 				</div>
 			</div>
