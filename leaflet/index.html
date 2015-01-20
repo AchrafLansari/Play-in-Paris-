@@ -187,7 +187,7 @@
                 
                 map.addLayer(geojsonLayer);*/
                 
-                var puzzleLayer = new L.GeoJSON.AJAX("json/quizz.geojson", {
+                var puzzleLayer = new L.GeoJSON.AJAX("json/puzzle.geojson", {
         			pointToLayer: function(feature, coord){
         				return L.marker(coord, {icon: myPuzzleMarkerOptions}).setOpacity(0.8);
         			},

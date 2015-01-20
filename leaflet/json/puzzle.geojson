@@ -6,21 +6,21 @@
          "geometry":{
             "type":"Point",
             "coordinates":[
-               2.387085,
-               48.870897
+               2.306164,
+			   48.850671
             ]
          },
          "properties":{
             "ville":"Paris",
-            "adresse_complete":"Passage Piat 75020 PARIS France",
-            "nom_site":"Passage Piat",
-            "adresse":"Passage Piat",
-            "arrondissement":"20",
+            "adresse_complete":"UNESCO 7 Place de Fontenoy 75007 PARIS France",
+            "nom_site":"UNESCO",
+            "adresse":"7 Place de Fontenay",
+            "arrondissement":"07",
             "geo_coordinates":[
-               48.870897,
-               2.387085
+               48.850671,
+               2.306164
             ],
-            "cp":"75020"
+            "cp":"75007"
          }
       },
       {
@@ -28,21 +28,65 @@
          "geometry":{
             "type":"Point",
             "coordinates":[
-            	2.337475,
-            	48.886702
+               2.340625,
+               48.825941
             ]
          },
          "properties":{
             "ville":"Paris",
-            "adresse_complete":"10 Rue d'Orchampt 75018 PARIS France",
-            "nom_site":"Rue d'Orchampt",
-            "adresse":"10 Rue d'Orchampt",
+            "adresse_complete":"Parc MontSouris 75014 PARIS France",
+            "nom_site":"Parc MontSouris",
+            "adresse":"Parc MontSouris",
+            "arrondissement":"14",
+            "geo_coordinates":[
+               48.825941,
+               2.340625
+            ],
+            "cp":"75014"
+         }
+      },
+      {
+         "type":"Feature",
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+               2.363136,
+               48.895975
+            ]
+         },
+         "properties":{
+            "ville":"Paris",
+            "adresse_complete":"36 Rue Jean Cottin 75018 PARIS France",
+            "nom_site":"36 Rue Jean Cottin",
+            "adresse":"36 Rue Jean Cottin",
             "arrondissement":"18",
             "geo_coordinates":[
-               48.886702,
-               2.337475
+               48.895975,
+               2.363136
             ],
             "cp":"75018"
+         }
+      },
+      {
+         "type":"Feature",
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+               2.384580,
+               48.881169
+            ]
+         },
+         "properties":{
+            "ville":"Paris",
+            "adresse_complete":"Parc des Buttes-Chaumont Avenue Edouard Petit 75019 PARIS France",
+            "nom_site":"Parc des Buttes-Chaumont",
+            "adresse":"Avenue Edouard Petit",
+            "arrondissement":"19",
+            "geo_coordinates":[
+               48.881169,
+               2.384580
+            ],
+            "cp":"75019"
          }
       },
       {

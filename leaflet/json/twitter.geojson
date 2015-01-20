@@ -88,6 +88,50 @@
             ],
             "cp":"75016"
          }
+      },
+      {
+         "type":"Feature",
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+               2.387085,
+               48.870897
+            ]
+         },
+         "properties":{
+            "ville":"Paris",
+            "adresse_complete":"Passage Piat 75020 PARIS France",
+            "nom_site":"Passage Piat",
+            "adresse":"Passage Piat",
+            "arrondissement":"20",
+            "geo_coordinates":[
+               48.870897,
+               2.387085
+            ],
+            "cp":"75020"
+         }
+      },
+      {
+         "type":"Feature",
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+            	2.337475,
+            	48.886702
+            ]
+         },
+         "properties":{
+            "ville":"Paris",
+            "adresse_complete":"10 Rue d'Orchampt 75018 PARIS France",
+            "nom_site":"Rue d'Orchampt",
+            "adresse":"10 Rue d'Orchampt",
+            "arrondissement":"18",
+            "geo_coordinates":[
+               48.886702,
+               2.337475
+            ],
+            "cp":"75018"
+         }
       }
    ]
 }
