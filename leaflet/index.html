@@ -67,6 +67,13 @@
 			    fillOpacity: 0.8
 			};
 		
+		var myPuzzleMarkerOptions = L.icon({
+		    iconUrl: 'markers/icone-puzzle.png',
+		    iconSize:     [30, 33], // size of the icon
+		    iconAnchor:   [15, 33], // point of the icon which will correspond to marker's location
+		   	popupAnchor:  [0, -33] // point from which the popup should open relative to the iconAnchor
+		});
+		
 		var myPiafMarkerOptions = L.icon({
 		    iconUrl: 'markers/icone-proverbe.png',
 		    iconSize:     [30, 33], // size of the icon
@@ -148,7 +155,7 @@
                 
         map.addLayer(paintLayer);
 		
-		var geojsonLayer = new L.GeoJSON.AJAX("json/wifi.geojson", {
+		/*var geojsonLayer = new L.GeoJSON.AJAX("json/wifi.geojson", {
 			pointToLayer: function(feature, coord){
 				
 				if(feature.properties.arrondissement == "17")
@@ -180,7 +187,22 @@
 			}
         });
                 
-                map.addLayer(geojsonLayer);
+                map.addLayer(geojsonLayer);*/
+                
+                var puzzleLayer = new L.GeoJSON.AJAX("json/quizz.geojson", {
+        			pointToLayer: function(feature, coord){
+        				return L.marker(coord, {icon: myPuzzleMarkerOptions}).setOpacity(0.8);
+        			},
+                    onEachFeature: function (feature, layer) {
+                    	layer.on("click", function (e) {
+                                    $('#minijeu').html("");
+                                    $('a.poplight[href^=#]').click();
+                                    $('#minijeu').load("../puzzle_game/puzzle_hard.php");      
+                        }); 
+                    }
+                });
+                        
+               map.addLayer(puzzleLayer);
                 
                 var geojsonLayer2;
                 

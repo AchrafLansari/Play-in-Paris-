@@ -66,6 +66,28 @@
             ],
             "cp":"75006"
          }
+      },
+      {
+         "type":"Feature",
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+               2.381959,
+               48.836144
+            ]
+         },
+         "properties":{
+            "ville":"PARIS",
+            "adresse_complete":"Parc de Bercy 128 Quai de Bercy 75012 PARIS France",
+            "nom_site":"Parc de Bercy",
+            "adresse":"128 Quai de Bercy",
+            "arrondissement":"12",
+            "geo_coordinates":[
+               48.836144,
+               2.381959
+            ],
+            "cp":"75012"
+         }
       }
    ]
 }
