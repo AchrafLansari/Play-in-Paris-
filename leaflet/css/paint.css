@@ -1,0 +1,15 @@
+image{
+	position: absolute;
+}
+
+rect{
+	position: absolute;
+}
+
+circle{
+	position: absolute;
+}
+
+.calque_actif {
+	background-color: grey;
+}
