@@ -132,6 +132,7 @@ function handleDrop(e) {
 
 						if(data != ""){
 							piafLayer.removeLayer(id);
+							//Ajouter le score
 						}
 					}
 				});
