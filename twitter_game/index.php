@@ -127,8 +127,12 @@ function handleDrop(e) {
 				dataType:'html',
 				success:function(data)
 					{
-				$( '#output' ).append(data);
-						
+						$( '#output' ).append(data);
+						var id = <?php echo $_GET['id']?>;
+
+						if(data != ""){
+							piafLayer.removeLayer(id);
+						}
 					}
 				});
   return false;

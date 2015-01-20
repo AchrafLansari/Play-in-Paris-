@@ -131,7 +131,7 @@
 	            layer.on("click", function (e) {
 	                    $('#minijeu').html("");
 	                    $('a.poplight[href^=#]').click();
-	                    $('#minijeu').load("../twitter_game/index.php");
+	                    $('#minijeu').load("../twitter_game/index.php?id="+e.target._leaflet_id	);
 	            });
 	        }
 		});
