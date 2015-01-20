@@ -45,7 +45,14 @@
                 var score = 0;
                 var niveau = 0;
 		var map = L.map('map').setView([48.8534100 , 2.3488000], 13);
-
+                
+                
+                 maDate = new Date();
+                 nJour = maDate.getDay();
+                 nHour = maDate.getHours();
+                 console.log(nHour);
+                 
+                    
 		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
 			minZoom: 13,
 			maxZoom: 17,
@@ -56,8 +63,16 @@
 			//grey map
 			id: 'examples.map-20v6611k'
 		}).addTo(map);
-
+                map.eachLayer(function(layer){
+		if(layer.options.hasOwnProperty('id')){
 		
+                if(nHour > 18 && nHour < 6 ){
+                     layer.options.id = 'examples.map-i875mjb7';
+                 }else {
+                     layer.options.id = 'examples.map-20v6611k';
+                 }
+             }
+         });
 		var myCircleMarkerOptions = {
 			    radius: 10,
 			    fillColor: "#ff7800",
