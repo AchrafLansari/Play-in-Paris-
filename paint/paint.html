@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Insert title here</title>
+		
+		<link rel="stylesheet" href="css/jquery.svg.css">
+		<link rel="stylesheet" href="css/jquery.parallax.css">
+		<link rel="stylesheet" href="css/base.css">
+		<style>
+			#svg-panel	 {
+				width: 400px;
+				height: 300px;
+				border: 1px solid #484;
+				position:relative;
+				overflow:hidden;
+			}
+				
+			.calque_actif {
+				background-color: grey;
+			}
+		</style>
+		
+	    <script type="text/javascript" src="javascript/jquery-2.1.1.min.js"></script>
+	    <script type="text/javascript" src="javascript/queue.v1.min.js" ></script>
+	    <script type="text/javascript" src="javascript/svg.min.js" ></script>
+	    <script type="text/javascript" src="javascript/jquery.svganim.js" ></script>
+	    <script type="text/javascript" src="javascript/jquery.svg.js" ></script>
+	    <script type="text/javascript" src="javascript/jquery.parallax.js" ></script>
+	    <script type="text/javascript" src="javascript/jquery.event.frame.js" ></script>
+		<script>
+			var calques = [1];
+			var tab_visibilite_calque = [true];
+			var tab_lock_calque = [false];
+			var calque_actif = 1;
+			
+			$(function(){
+				$('#svg-panel').svg({onLoad: initSVG});
+				$('#image-fond-action').click(changerFond);
+				$('#svg-panel').click(paint);
+				$('#reset').click(reset);
+				
+				$('#svg-panel .parallax-layer').parallax({
+					mouseport: jQuery("#svg-panel")
+				});
+			});
+			
+			function initSVG(svg){
+				var svg = $('#svg-panel').svg('get');
+				
+				var fond = svg.group(null, "fond", {class_: "parallax-layer"});
+				var image = 'http://images.lpcdn.ca/641x427/201306/25/708114-tour-eiffel-paris.jpg';
+				svg.image(fond, 0, 0, 400, 300, image);
+				
+				svg.group(null, "g_calque_1", {class_: "parallax-layer", width: "800px", height: "600px"});
+				select_calque('1');
+			}
+			
+			function save_svg() {
+			    var serializer = new XMLSerializer();
+			    var xmlString = serializer.serializeToString($("svg")[0]);
+			    var imgData = 'data:image/svg+xml;base64,' + btoa(xmlString);
+			    $("#download").attr("href", imgData);
+			}
+			
+			function ajout_calque(){
+				var nombre = calques.length + 1;
+				var svg = $('#svg-panel').svg('get');
+				
+				tab_visibilite_calque[nombre - 1] = true;
+				tab_lock_calque[nombre - 1] = false;
+				calques[nombre - 1] = nombre;
+			
+				svg.group(null, "g_calque_"+nombre, {class_: "parallax-layer", width: "800px", height: "200px"});
+				
+				var col_visible = '<td id="show-'+nombre+'" onclick="show('+nombre+', \'show-'+nombre+'\')">Oui</td>';
+				var col_lock = '<td id="lock-'+nombre+'" onclick="lock('+nombre+', \'lock-'+nombre+'\')">Non</td>';
+				var col_nom = '<td><input type="text" value="Calque '+ nombre +'"></td>';
+				
+				$("#calques").append('<tr id="calque_'+nombre+'" onclick="select_calque('+nombre+')">' + col_visible + col_lock + col_nom + '</tr>');
+			}
+			
+			function show(calque, element){
+				var svg = $('#svg-panel').svg('get');
+				var groupe = svg.getElementById("g_calque_"+calque);
+				
+				switch(tab_visibilite_calque[calque-1]){
+					case true:
+						tab_visibilite_calque[calque-1] = false;
+						$('#'+element).text("Non");
+						groupe.style.visibility = "hidden";
+						break;
+					case false:
+						tab_visibilite_calque[calque-1] = true;
+						$('#'+element).text("Oui");
+						groupe.style.visibility = "visible";
+						break;
+				}
+			}
+			
+			function lock(calque, element){
+				switch(tab_lock_calque[calque-1]){
+					case true:
+						tab_lock_calque[calque-1] = false;
+						$('#'+element).text("Non");
+						break;
+					case false:
+						tab_lock_calque[calque-1] = true;
+						$('#'+element).text("Oui");
+						break;
+				}
+			}
+			
+			function select_calque(calque){
+				if(tab_lock_calque[calque-1] == false){	
+					if($("#calque_"+calque_actif).hasClass("calque_actif")){
+						$("#calque_"+calque_actif).removeClass("calque_actif");
+					}
+					calque_actif = calque;
+					$("#calque_"+calque).addClass("calque_actif");
+					
+					var rotation = 0;
+					var vitesse = 0;
+					
+				}
+			}
+			
+			function reset(){
+				var svg = $('#svg-panel').svg('get');
+				svg.clear();
+				
+				var fond = svg.group(null, "fond", {class_: "parallax-layer"});
+				var image = 'http://images.lpcdn.ca/641x427/201306/25/708114-tour-eiffel-paris.jpg';
+				svg.image(fond, 0, 0, 400, 300, image);
+			}
+			
+			function changerFond(){
+				var svg = $('#svg-panel').svg('get');
+				var image = $('#image-fond').val();
+				var fond = svg.getElementById("fond");
+				fond.remove();
+				var fond = svg.group(null, "fond", {class_: "parallax-layer"});
+				svg.image(fond, 0, 0, 400, 300, image);		
+			}
+			
+			function paint(evt){
+				var svg = $('#svg-panel').svg('get');
+				
+				var x = evt.offsetX;
+				var y = evt.offsetY;
+				var taille = $('#taille-element').val();
+				var forme = $('#forme-element').val();
+				var opacite = $('#opacite-element').val()/100;
+				
+				var couleur = "#000000";
+				
+				var groupe = svg.getElementById("g_calque_"+calque_actif);
+				
+				switch ($('#couleur-element').val()){
+					case 'Rouge' :
+						couleur = '#ff0000';
+						break;
+					case 'Bleu' :
+						couleur = '#0000ff';
+						break;
+					case 'Vert' :
+						couleur = '#00ff00';
+						break;
+					default:
+						couleur = '#000000';
+				}
+				
+				switch(forme){
+					case 'Carré' :
+						svg.rect(groupe, x-(taille/2), y-(taille/2), taille, taille, 0, 0, {fill: couleur, opacity:opacite});
+						break;
+					case 'Cercle' :
+						svg.circle(groupe, x - (taille/4), y - (taille/4), (taille/2), {fill: couleur, opacity: opacite});
+						break;
+					case 'Image' :
+						var image = $('#image').val();
+						var largeur = $('#image-largeur').val();
+						var hauteur = $('#image-hauteur').val();
+						svg.image(groupe, x-(largeur/2), y-(hauteur/2), largeur, hauteur, image, {opacity: opacite});
+						break;
+				}
+			}
+			
+			function set_rotation(){
+				var rotation = $("#input-rotation").val();
+				var vitesse = $("#vitesse-rotation").val();
+				
+				var svg = $('#svg-panel').svg('get');
+				var groupe = svg.getElementById("g_calque_"+calque_actif);
+				
+				$(groupe).animate({svgTransform: 'rotate('+rotation+', 200, 150)'}, vitesse*1000);
+				var c = null;
+			}
+		</script>
+	</head>
+	<body>
+		<div id="conteneur">
+			<div id="principal">
+				<div id="svg-panel">
+				</div>
+				<div id="menu-palette">
+					<div id="palette-taille">
+						<label>Taille</label>
+						<input id="taille-element" type="number" value="1"/>
+					</div>
+					<div id="palette-forme">
+						<label>Forme</label>
+						<select id="forme-element">
+							<option>Carré</option>
+							<option>Cercle</option>
+							<option>Image</option>
+						</select>
+					</div>
+					<div id="palette-couleur">
+						<label>Couleur</label>
+						<select id="couleur-element">
+							<option>Rouge</option>
+							<option>Bleu</option>
+							<option>Vert</option>
+							<option>Noir</option>
+						</select>
+					</div>
+					<div id="palette-opacite">
+						<label>Opacité</label>
+						<input id="opacite-element" type="number" value="100"/>
+					</div>
+					<div>
+						<label>Ajouter une image</label>
+						<input id="image" type="url" value="http://fc07.deviantart.net/fs70/f/2010/232/6/9/Pika_Pika_by_Sprits.png"/>
+						<input id="image-largeur" type="number" value="100"/>
+						<input id="image-hauteur" type="number" value="100"/>
+					</div>
+					<div>
+						<label>Image de fond</label>
+						<input id="image-fond" type="url"/>
+						<span id="image-fond-action">Charger</span>
+					</div>
+					<div>
+						<span id="reset">Recommencer</span>
+					</div>
+				</div>
+			</div>
+			<div id="">
+				<div id="menu-calque">
+					<h2>Calques</h2>
+					<div onclick="ajout_calque()">Ajouter</div>
+					<table id="calques">
+						<tr>
+							<td>Visible</td>
+							<td>Verrou</td>
+							<td>Nom</td>
+						</tr>
+						<tr id="calque_1" onclick="select_calque('1')">
+							<td id="show-1" onclick="show('1', 'show-1')">Oui</td>
+							<td id="lock-1" onclick="lock('1', 'lock-1')">Non</td>
+							<td><input type="text" value="Calque 1"></td>
+						</tr>
+					</table>
+				</div>
+				
+				<div id="menu-propriete">
+					<div>
+						<label>Rotation</label><input id="input-rotation" onchange="set_rotation()" type="number" value="0"/>
+						<label>Vitesse</label><input id="vitese-rotation" type="number" value="0"/>
+					</div>
+				</div>
+			</div>
+			<a href="" onclick="save_svg()" id="download" download>Télécharger</a>
+		</div>
+	</body>
+</html>
