@@ -10,9 +10,16 @@
       -webkit-user-drag: element;
     }
     #columns{
-       
         width: 100%;
-
+        margin-top : 150px;
+    }
+    #output{
+        font-family: "kickflip";
+        font-size: 48px;
+        left: 350px;
+        position: absolute;
+        right: 80px;
+        top: 420px;
     }
     .column {
       position : relative;
