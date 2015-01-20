@@ -1,0 +1,71 @@
+{
+   "type":"FeatureCollection",
+   "features":[
+      {
+         "type":"Feature",
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+               2.294449,
+               48.858620
+            ]
+         },
+         "properties":{
+            "ville":"Paris",
+            "adresse_complete":"5 Avenue Anatole France 75007 PARIS France",
+            "nom_site":"Tour Eiffel",
+            "adresse":"5 Avenue Anatole France",
+            "arrondissement":"07",
+            "geo_coordinates":[
+               48.858620,
+               2.294449
+            ],
+            "cp":"75007"
+         }
+      },
+      {
+         "type":"Feature",
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+            	2.334204,
+               	48.861725
+            ]
+         },
+         "properties":{
+            "ville":"Paris",
+            "adresse_complete":"111 Place du Carrousel 75001 PARIS France",
+            "nom_site":"Musée du Louvres",
+            "adresse":"111 Place du Carrousel",
+            "arrondissement":"01",
+            "geo_coordinates":[
+               48.861725,
+               2.334204
+            ],
+            "cp":"75001"
+         }
+      },
+      {
+         "type":"Feature",
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+               2.337235,
+               48.845841
+            ]
+         },
+         "properties":{
+            "ville":"PARIS",
+            "adresse_complete":"Jardin du Luxembourg 75006 PARIS France",
+            "nom_site":"Jardin du Luxembourg",
+            "adresse":"Jardin du Luxembourg",
+            "arrondissement":"06",
+            "geo_coordinates":[
+               48.845841,
+               2.337235
+            ],
+            "cp":"75006"
+         }
+      }
+   ]
+}
