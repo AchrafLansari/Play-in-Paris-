@@ -42,6 +42,8 @@
 	<script>
                 const PUZZLE_DIFFICULTY = 8;
                 const PUZZLE_HOVER_TINT = '#009900';
+                var score = 0;
+                var niveau = 0;
 		var map = L.map('map').setView([48.8534100 , 2.3488000], 13);
 
 		L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
@@ -131,7 +133,8 @@
 	            layer.on("click", function (e) {
 	                    $('#minijeu').html("");
 	                    $('a.poplight[href^=#]').click();
-	                    $('#minijeu').load("../twitter_game/index.php?id="+e.target._leaflet_id	);
+	                    $('#minijeu').load("../twitter_game/index.php?id="+e.target._leaflet_id);
+                           
 	            });
 	        }
 		});
@@ -195,7 +198,7 @@
                     	layer.on("click", function (e) {
                                     $('#minijeu').html("");
                                     $('a.poplight[href^=#]').click();
-                                    $('#minijeu').load("../puzzle_game/puzzle_hard.php");      
+                                    $('#minijeu').load("../puzzle_game/puzzle_hard.php?id="+e.target._leaflet_id);      
                         }); 
                     }
                 });
@@ -256,7 +259,7 @@
                 layer.on("click", function (e) {
                         $('a.poplight[href^=#]').click();
                         $('#minijeu').html("");
-                        $('#minijeu').load("../quiz_game/index2.php");
+                        $('#minijeu').load("../quiz_game/index.php?id="+e.target._leaflet_id);
                 });
                
             },
@@ -299,11 +302,13 @@
                 $( "#map" )
                     .mouseover(function() {
                         if(parseInt($("#score_utilisateur").text())>50){
+                            niveau +=1;
                             $("#niveau_utilisateur" ).text( parseInt($("#niveau_utilisateur").text())+1);
                         }
                         
                         setTimeout(function() {
-                                    $("#score_utilisateur" ).text( parseInt($("#score_utilisateur").text())+1);
+                            score +=1;
+                            $("#score_utilisateur" ).text( parseInt($("#score_utilisateur").text())+1);
                         }, 10000);
                         
                     });
