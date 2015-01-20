@@ -28,7 +28,7 @@ for($i=0;$i<3;$i++){
 
         <style>
             body {
-            	background-image:url("BG.png")
+            	background-color:green;
 		  }
 
 		  #ccontainer{
@@ -114,9 +114,15 @@ for($i=0;$i<3;$i++){
 
 					context.textBaseline = "middle";
 					context.font = "14pt Calibri,Arial";
-					context.fillText(<?php echo "'".utf8_decode(addslashes(substr($word,0,125)))."'";?>,12,textpos1);
-					<?php if(strlen($word) > 125 ){ ?>
-					context.fillText(<?php echo "'".utf8_decode(addslashes(substr($word,125,175)))."'";?>,12,textpos1+15);
+					<?php if(strlen($word) >125 ){ ?>
+					context.fillText( <?php $word_final= "'".utf8_decode(addslashes(substr($word,0,60)))."'";
+									 echo substr_replace($word_final,"...",57)."'";?>,12,textpos1);
+					<?php } ?>
+					<?php  if(strlen($word) < 125 ){ ?>
+					context.fillText(<?php echo "'".utf8_decode(addslashes(substr($word,0,60)))."'";
+						
+						$word_final= "'".utf8_decode(addslashes(substr($word,61,80)))."'";
+									 echo substr_replace($word_final,"...",77)."'";?>,12,textpos1);?>,12,textpos1+15);
                                         <?php } ?>
 				
 					context.fillText(Option1,20,textpos2);
