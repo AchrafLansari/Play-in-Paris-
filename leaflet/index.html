@@ -28,7 +28,7 @@
         
         
         <div id="popup_name" class="popup_block" style="height: 500px" >
-                <h2>Mini jeu </h2>
+                <h2 id="titre_minijeu">Mini jeu </h2>
                 <div id="minijeu"> </div>
         </div>
 	<div id="map" ></div>
@@ -134,7 +134,7 @@
 	                    $('#minijeu').html("");
 	                    $('a.poplight[href^=#]').click();
 	                    $('#minijeu').load("../twitter_game/index.php?id="+e.target._leaflet_id);
-                           
+                            $('#titre_minijeu').html('Find the Proverb :');
 	            });
 	        }
 		});
@@ -150,6 +150,7 @@
 	                    $('a.poplight[href^=#]').click();
 	                    $('#minijeu').html("");
 	                    $('#minijeu').load("../paint/paint.html");
+                            $('#titre_minijeu').html('Paint like you want :');
 	            });
 	        }
    		});
@@ -198,7 +199,8 @@
                     	layer.on("click", function (e) {
                                     $('#minijeu').html("");
                                     $('a.poplight[href^=#]').click();
-                                    $('#minijeu').load("../puzzle_game/puzzle_hard.php?id="+e.target._leaflet_id);      
+                                    $('#minijeu').load("../puzzle_game/puzzle_hard.php?id="+e.target._leaflet_id);
+                                    $('#titre_minijeu').html('Resolve the Puzzle :');
                         }); 
                     }
                 });
@@ -260,6 +262,7 @@
                         $('a.poplight[href^=#]').click();
                         $('#minijeu').html("");
                         $('#minijeu').load("../quiz_game/index.php?id="+e.target._leaflet_id);
+                        $('#titre_minijeu').html('a Movie Quiz  :');
                 });
                
             },
