@@ -1,4 +1,5 @@
 <?php
+header('charset=utf-8');
 include_once('../quiz_game/functions/search.php');
 include_once('../quiz_game/functions/get.php');
 require_once('../quiz_game/functions/allocine.class.php');
@@ -61,7 +62,7 @@ for($i=0;$i<3;$i++){
                                           
                                        ?>
 				
-				var Questions = [<?php echo "'".  utf8_decode(addslashes($word))."'";
+				var Questions = [<?php echo "'". addslashes($word)."'";
 					
 								 ?>];
 											
@@ -92,13 +93,13 @@ for($i=0;$i<3;$i++){
 					context.textBaseline = "middle";
 					context.font = "14pt Calibri,Arial";
 					<?php if(strlen($word) >125 ){ ?>
-					context.fillText( <?php $word_final= "'".utf8_decode(addslashes(substr($word,0,60)))."'";
+					context.fillText( <?php $word_final= "'".addslashes(substr($word,0,60))."'";
 									 echo substr_replace($word_final,"...",57)."'";?>,12,textpos1);
 					<?php } ?>
 					<?php  if(strlen($word) < 125 ){ ?>
-					context.fillText(<?php echo "'".utf8_decode(addslashes(substr($word,0,60)))."'";
+					context.fillText(<?php echo "'".addslashes(substr($word,0,60))."'";
 						
-						$word_final= "'".utf8_decode(addslashes(substr($word,61,80)))."'";
+						$word_final= "'".addslashes(substr($word,61,80))."'";
 									 echo substr_replace($word_final,"...",77)."'";?>,12,textpos1);?>,12,textpos1+15);
                                         <?php } ?>
 				
@@ -148,7 +149,7 @@ for($i=0;$i<3;$i++){
 		  }
 		  lock=true;
 		  context.font = "14pt Calibri,Arial";
-		  context.fillText("Click again to continue",20,380);
+		  context.fillText("Click Here to watch the trailer",20,380);
 		}//get feedback
 
 
@@ -180,8 +181,10 @@ for($i=0;$i<3;$i++){
 		
 		
 		else{
-		context.fillText("ouppps you LOSE ",20,100);
-		context.fillText("Oupppps Try again you have a Wrong answers: "+String(wronganswers),20,240);
+			context.font = "40pt Calibri,Arial";
+		context.fillText("Oups ",20,100);
+		context.fillText("Sorry you lose",20,240);
+		
 		}
 			}};//windowonload
 
@@ -189,13 +192,18 @@ for($i=0;$i<3;$i++){
 
 
     </head>
-    
-    
-<canvas id="myCanvas" width="550" height="400">
+    <body>
+		<style>
+		  #myCanvas {
+		background:#EBF5FF;
+		  }
+</style>
+    <div id="ccontainer">
+<center><canvas id="myCanvas" width="550" height="400">
 
-</canvas>
+	</canvas></center>
 			
-
+</div>
  <script>
 	function divaffiche(){
       document.getElementById("bande").style.display = "block";
@@ -204,7 +212,7 @@ for($i=0;$i<3;$i++){
     }
  </script>
 	<center>
-        <div id="bande" width="550" height="400" style ="margin-bottom:300px;">
+        <div id="bande" width="550" height="400" style ="margin-top:0px;">
                 <object
 		type="application/x-shockwave-flash"
 		data="<?php echo '"'.get_trailer($myjson[0]).'"';?>"
