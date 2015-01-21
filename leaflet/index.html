@@ -282,8 +282,11 @@
                
             },
 			filter: function (feature, layer){
-				if(feature.properties.adrcommune == "PARIS")
+				if(feature.properties.adrcommune == "PARIS"){
+					if(Math.random()*10 < 9)
+						return false;
 					return true;
+				}
 				else
 					return false;
 			}
