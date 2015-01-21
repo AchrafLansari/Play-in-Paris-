@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Insert title here</title>
+		<title>Paint in Paris</title>
 		
 		<link rel="stylesheet" href="css/jquery.svg.css">
 		<link rel="stylesheet" href="css/jquery.parallax.css">
@@ -40,7 +40,7 @@
 				
 				var fond = svg.group(null, "fond", {class_: "parallax-layer", width: "600px", height: "600px"});
 				var image = 'http://images.lpcdn.ca/641x427/201306/25/708114-tour-eiffel-paris.jpg';
-				svg.image(fond, 0, 0, 600, 400, image);
+				svg.image(fond, 0, 0, 400, 300, image);
 				
 				svg.group(null, "g_calque_1", {class_: "parallax-layer", width: "1000px", height: "1000px"});
 				select_calque('1');
@@ -55,6 +55,11 @@
 			
 			function ajout_calque(){
 				var nombre = calques.length + 1;
+				
+				if(nombre > 7){
+					return;
+				}
+				
 				var svg = $('#svg-panel').svg('get');
 				
 				tab_visibilite_calque[nombre - 1] = true;
@@ -68,7 +73,7 @@
 				
 				var col_visible = '<td id="show-'+nombre+'" onclick="show('+nombre+', \'show-'+nombre+'\')">Oui</td>';
 				var col_lock = '<td id="lock-'+nombre+'" onclick="lock('+nombre+', \'lock-'+nombre+'\')">Non</td>';
-				var col_nom = '<td><input type="text" value="Calque '+ nombre +'"></td>';
+				var col_nom = '<td><input type="text" value="Calque '+ nombre +'" maxlength="15" style="width: 100px;"></td>';
 				
 				$("#calques").append('<tr id="calque_'+nombre+'" onclick="select_calque('+nombre+')">' + col_visible + col_lock + col_nom + '</tr>');
 			}
@@ -113,7 +118,7 @@
 					$("#calque_"+calque).addClass("calque_actif");
 					
 					$("#input-rotation")[0].value = tab_rotation_calque[calque-1];
-					$("#vitesse-rotation")[0].value = tab_rotation_vitesse[calque-1];
+					//$("#vitesse-rotation")[0].value = tab_rotation_vitesse[calque-1];
 				}
 			}
 			
@@ -124,6 +129,20 @@
 				var fond = svg.group(null, "fond", {class_: "parallax-layer"});
 				var image = 'http://images.lpcdn.ca/641x427/201306/25/708114-tour-eiffel-paris.jpg';
 				svg.image(fond, 0, 0, 400, 300, image);
+				
+				calques = [1];
+				tab_visibilite_calque = [true];
+				tab_lock_calque = [false];
+				tab_rotation_calque = [0];
+				calque_actif = 1;  
+				
+				var html = '<tr><td>Visible</td><td>Verrou</td><td align="center">Nom</td></tr>'
+						+ '<tr id="calque_1" onclick="select_calque(\'1\')">'
+						+ '<td id="show-1" onclick="show(\'1\', \'show-1\')">Oui</td>'
+						+ '<td id="lock-1" onclick="lock(\'1\', \'lock-1\')">Non</td>'
+						+ '<td><input type="text" value="Calque 1" maxlength="15" style="width: 100px;"></td></tr>';
+				
+				$("#calques")[0].innerHTML = html;
 			}
 			
 			function changerFond(){
@@ -156,11 +175,26 @@
 					case 'Rouge' :
 						couleur = '#ff0000';
 						break;
-					case 'Bleu' :
-						couleur = '#0000ff';
+					case 'Orange' :
+						couleur = '#ffA500';
+						break;
+					case 'Jaune' :
+						couleur = '#00ff00';
 						break;
 					case 'Vert' :
 						couleur = '#00ff00';
+						break;
+					case 'Bleu' :
+						couleur = '#0000ff';
+						break;
+					case 'Violet' :
+						couleur = '#ff00ff';
+						break;
+					case 'Blanc' :
+						couleur = '#ffffff';
+						break;
+					case 'Noir' :
+						couleur = '#000000';
 						break;
 					default:
 						couleur = '#000000';
@@ -175,9 +209,7 @@
 						break;
 					case 'Image' :
 						var image = $('#image').val();
-						var largeur = $('#image-largeur').val();
-						var hauteur = $('#image-hauteur').val();
-						svg.image(groupe, x-(largeur/2), y-(hauteur/2), largeur, hauteur, image, {opacity: opacite});
+						svg.image(groupe, x-(taille/2), y-(taille/2), taille, taille, image, {opacity: opacite});
 						break;
 				}
 			}
@@ -189,21 +221,13 @@
 				animate_calque();
 			}
 			
-			function set_vitesse_rotation(){
-				var vitesse = $("#vitesse-rotation").val();
-				tab_rotation_vitesse[calque_actif - 1] = vitesse;
-				
-				animate_calque();
-			}
-			
 			function animate_calque(){
 				var svg = $('#svg-panel').svg('get');
 				
 				var rotation = tab_rotation_calque[calque_actif - 1];
-				var vitesse = tab_rotation_vitesse[calque_actif - 1];
 				
 				var groupe = svg.getElementById("g_calque_"+calque_actif);
-				$(groupe).animate({svgTransform: 'rotate('+ rotation*10 +', 200, 150)'}, vitesse/100);
+				$(groupe).animate({svgTransform: 'rotate('+ rotation*10 +', 200, 150)'}, 0.1);
 			}
 			
 			function set_music(){
@@ -220,16 +244,36 @@
 		</script>
 	</head>
 	<body>
-		<div id="conteneur">
-			<div id="principal">
-				<div id="svg-panel">
+		<div id="conteneur" class="container" style="margin-top: -25px;">
+			<div id="principal" class="row" style="width: 610px;">
+				<div id="svg-panel" class="col-md-8">
 				</div>
-				<div id="menu-palette">
-					<div id="palette-taille">
-						<label>Taille</label>
-						<input id="taille-element" type="number" value="1" min="1" max="200"/>
+				<div id="menu" class="col-md-4" style="font-size: 0.8em;">
+					<h3>Calques</h3>
+					<table id="calques">
+						<tr>
+							<td>Visible</td>
+							<td>Verrou</td>
+							<td align="center">Nom</td>
+						</tr>
+						<tr id="calque_1" onclick="select_calque('1')">
+							<td id="show-1" onclick="show('1', 'show-1')">Oui</td>
+							<td id="lock-1" onclick="lock('1', 'lock-1')">Non</td>
+							<td><input type="text" value="Calque 1" maxlength="15" style="width: 100px;"></td>
+						</tr>
+					</table>
+					<div class="row col-md-12">
+						<label>Rotation</label><input id="input-rotation" onchange="set_rotation()" type="number" min="0" max="360"/>
 					</div>
-					<div id="palette-forme">
+					<div class="row col-md-12">
+						<a href="#" onclick="ajout_calque()">Créer un calque</a> - <a href="#" id="reset">Reset</a>
+					</div>
+				</div>
+			</div>
+			<div id="menu-palette" class="row" style="width: 610px; font-size: 0.8em;">
+				
+				<div class="row">
+					<div class="col-md-3">
 						<label>Forme</label>
 						<select id="forme-element">
 							<option>Carré</option>
@@ -237,65 +281,53 @@
 							<option>Image</option>
 						</select>
 					</div>
-					<div id="palette-couleur">
+					<div class="col-md-3">
+						<label>Taille</label>
+						<input id="taille-element" type="number" value="10" min="1" max="200" style="height: 20px; width:60px;"/>
+					</div>
+					
+					<div class="col-md-3">
 						<label>Couleur</label>
 						<select id="couleur-element">
-							<option>Rouge</option>
-							<option>Bleu</option>
-							<option>Vert</option>
-							<option>Noir</option>
-						</select>
+							<option style="background-color: red" selected="selected">Rouge</option>
+							<option style="background-color: orange;">Orange</option>
+							<option style="background-color: yellow;">Jaune</option>
+							<option style="background-color: green;">Vert</option>
+							<option style="background-color: blue;">Bleu</option>
+							<option style="background-color: purple;">Violet</option>
+							<option style="background-color: white;">Blanc</option>
+							<option style="background-color: black; color: white;">Noir</option>
+					</select>
 					</div>
-					<div id="palette-opacite">
+					
+					<div class="col-md-3">
 						<label>Opacité</label>
-						<input id="opacite-element" type="number" value="100" min="0" max="100"/>
-					</div>
-					<div>
-						<label>Ajouter une image</label><input id="image" type="url" value="http://fc07.deviantart.net/fs70/f/2010/232/6/9/Pika_Pika_by_Sprits.png"/>
-						<label>Largeur</label><input id="image-largeur" type="number" value="100" min="1" max="2000"/>
-						<label>Hauteur</label><input id="image-hauteur" type="number" value="100" min="1" max="2000"/>
-					</div>
-					<div>
-						<label>Image de fond</label>
-						<input id="image-fond" type="url"/>
-						<span id="image-fond-action">Charger</span>
-					</div>
-					<div>
-						<label>Musique</label>
-						<input id="musique" type="url"/>
-						<span id="charger-musique" onclick="set_music()">Charger</span>
-					</div>
-					<div>
-						<span id="reset">Recommencer</span>
-					</div>
+						<input id="opacite-element" type="number" value="100" min="0" max="100"  style="height: 20px; width:60px;"/>
+					</div>				
 				</div>
-			</div>
-			<div id="">
-				<div id="menu-calque">
-					<h2>Calques</h2>
-					<div onclick="ajout_calque()">Ajouter</div>
-					<table id="calques">
-						<tr>
-							<td>Visible</td>
-							<td>Verrou</td>
-							<td>Nom</td>
-						</tr>
-						<tr id="calque_1" onclick="select_calque('1')">
-							<td id="show-1" onclick="show('1', 'show-1')">Oui</td>
-							<td id="lock-1" onclick="lock('1', 'lock-1')">Non</td>
-							<td><input type="text" value="Calque 1"></td>
-						</tr>
-					</table>
-				</div>
+				<div class="row">
 				
-				<div id="menu-propriete">
-					<div>
-						<label>Rotation</label><input id="input-rotation" onchange="set_rotation()" type="number" min="0" max="360"/>
-						<label>Vitesse</label><input id="vitesse-rotation" onchange="set_vitesse_rotation()" type="number" min="0" max="1000"/>
+					<div class="col-md-3">
+						<label>Image</label>
+						<input title="Lien de l'image" id="image" type="url" value="http://fc07.deviantart.net/fs70/f/2010/232/6/9/Pika_Pika_by_Sprits.png"  style="width: 80px; height: 20px;"/>
+					</div>
+					<div class="col-md-3">
+						<label>Fond</label>
+						<input id="image-fond" type="url" style="width: 70px; height: 20px;"/>
+						<a href="#" id="image-fond-action">Ok</a>
+					</div>
+					
+					<div class="col-md-3">
+						<label>MP3</label>
+						<input id="musique" type="url" style="width: 70px; height: 20px;"/>
+						<a href="#" id="charger-musique" onclick="set_music()">Ok</a>
+					</div>
+					
+					<div class="col-md-3">
+						<a href="" onclick="save_svg()" id="download" download>Télécharger</a>
 					</div>
 				</div>
 			</div>
-			<a href="" onclick="save_svg()" id="download" download>Télécharger</a>
 		</div>
 	</body>
 </html>
