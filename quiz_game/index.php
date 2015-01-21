@@ -114,10 +114,10 @@ for($i=0;$i<3;$i++){
 
 				function ProcessClick(ev) {
 
-				my=ev.y-canvas.offsetTop;
+				my=ev.y-canvas.offsetTop - 60;
 
 				if(ev.y == undefined){
-					my = ev.pageY - canvas.offsetTop;
+					my = ev.pageY - canvas.offsetTop - 60;
 				}
 
 			if(lock){
